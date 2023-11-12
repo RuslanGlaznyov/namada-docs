@@ -34,7 +34,11 @@ const config: DocsThemeConfig = {
   navigation: {
     prev: true,
     next: true
-  }
+  },
+  i18n: [
+    { locale: 'en-US', text: 'English' },
+    { locale: 'uk-UA', text: 'Українська' },
+  ]
 };
 
 export default config;
