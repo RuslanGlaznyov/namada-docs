@@ -1,32 +1,39 @@
-# Web Wallet
+# Веб-гаманець
 
-## Install
-When Namada is in `mainnet`, the web wallet will be available in most browser extension web stores. For now, you can install it from source by following the instructions below.
 
-### Installing from source (for development and experiment purposes)
+## Встановити
+Коли Namada знаходиться в `mainnet`, веб-гаманець буде доступний в більшості веб-магазинів розширень для браузерів. Наразі, ви можете встановити його з вихідного коду, дотримуючись інструкцій нижче.
 
-#### Connect to a testnet or run a local node
-1. Follow the instructions for the [testnets](../../networks/testnets.mdx) to connect to a testnet or set up a local node using [docker](../../introduction/install/docker.mdx).
-2. Figure out where the base directory is stored and save its location as a variable such as `export BASE_DIR=<path/to/base/dir>`.
-   You can follow [these docs](../../networks/testnets/migrating-testnets.mdx#after-v0153) to save this variable. Go ahead and save the chain id as a variable as well. You can find the chain id by running `cat $BASE_DIR/global-config.toml`. Save this chain-id to the variable `export CHAIN_ID=<CHAIN_ID>`.
-3. You will need to edit the CometBFT config in order to allow the web wallet to connect to your node.
-   The CometBFT config will be located in `$BASE_DIR/$CHAIN_ID/cometbft/config/config.toml`. You will need to change the `cors_allowed_origins` field to `["*"]`. You can do this by running
-   ```shell copy
+
+### Встановлення з вихідного коду (для розробки та експериментів)
+
+
+#### Підключення до тестової мережі або запуск локального вузла
+1. Дотримуйтесь інструкцій для [testnets](../../networks/testnets.mdx), щоб підключитися до тестової мережі або налаштувати локальний вузол за допомогою [docker](../../introduction/install/docker.mdx).
+2. З'ясуйте, де зберігається базовий каталог і збережіть його розташування у вигляді змінної, наприклад, `export BASE_DIR=<шлях/до/базового каталогу>`.
+   Ви можете слідувати [цим документам](../../networks/testnets/migrating-testnets.mdx#after-v0153), щоб зберегти цю змінну. Також збережіть ідентифікатор ланцюжка як змінну. Ви можете знайти ідентифікатор ланцюжка, виконавши `cat $BASE_DIR/global-config.toml`. Збережіть цей ідентифікатор ланцюжка у змінній `export CHAIN_ID=<CHAIN_ID>`.
+3. Вам потрібно буде відредагувати конфіг CometBFT, щоб дозволити веб-гаманцю підключатися до вашого вузла.
+   Конфігурація CometBFT знаходиться в `$BASE_DIR/$CHAIN_ID/cometbft/config/config.toml`. Вам потрібно буде змінити поле `cors_allowed_origins` на `["*"]`. Ви можете зробити це, виконавши
+   ```копію командного рядка
    sed -i 's/cors_allowed_origins = \[\]/cors_allowed_origins = ["*"]/' \
            $BASE_DIR/$CHAIN_ID/cometbft/config/config.toml
    ```
 
-#### Setting up the extension
-1. Clone the [namada-interface repository](https://github.com/anoma/namada-interface).
-2. Follow the installation instructions in `README.md`.
-3. `cd` into the `namada-interface/apps/extension` directory and run `yarn start:chrome`. This will build the extension and place it in the `namada-interface/apps/extension/build` directory. It also starts the dev server which will watch for changes.
-4. `cd` into the `namada-interface/apps/namada-interface` directory and run `yarn dev:local` in order to launch a local instance of the web wallet.
-4. Add the extension to the browser. For example, in Chrome, you can go to `chrome://extensions/` and click `Load unpacked` and select the `namada-interface/apps/extension/build/chrome/` folder.
 
-## Receiving tokens
-You can show the address of any account by pressing the `Receive` button in the initial view under the "Total Balances" tab. You can copy the address by clicking the copy icon next to the address.
-This will also display a QR code that can be scanned by a mobile wallet.
+#### Налаштування розширення
+1. Клонуйте [namada-interface repository](https://github.com/anoma/namada-interface).
+2. Дотримуйтесь інструкцій по встановленню у файлі `README.md`.
+3. Вставте `cd` у каталог `namada-interface/apps/extension` і виконайте `yarn start:chrome`. Це створить розширення і помістить його в каталог `namada-interface/apps/extension/build`. Це також запустить сервер розробників, який буде стежити за змінами.
+4. `cd` в каталог `namada-interface/apps/namada-interface` і запустіть `yarn dev:local`, щоб запустити локальний екземпляр веб-гаманця.
+4. Додайте розширення до браузера. Наприклад, в Chrome можна перейти за адресою `chrome://extensions/` і натиснути `Завантажити розпаковане` і вибрати папку `namada-interface/apps/extension/build/chrome/`.
 
-## Sending Transactions
 
-In order to send transactions, you can press the `Send` button in the initial view under the "Total Balances" tab. This will open a modal that will allow you to send tokens to any account, from any account in your wallet that has a positive balance.
+## Отримання токенів
+Ви можете показати адресу будь-якого акаунта, натиснувши кнопку `Отримати` в початковому поданні на вкладці `Загальні баланси`. Ви можете скопіювати адресу, натиснувши на іконку копіювання поруч з адресою.
+При цьому також з'явиться QR-код, який можна відсканувати мобільним гаманцем.
+
+
+## Відправлення транзакцій
+
+
+Для того, щоб відправити транзакції, ви можете натиснути кнопку "Відправити" в початковому поданні на вкладці "Загальні баланси". Це відкриє модальне вікно, яке дозволить вам відправляти токени на будь-який рахунок, з будь-якого рахунку у вашому гаманці, який має позитивний баланс.

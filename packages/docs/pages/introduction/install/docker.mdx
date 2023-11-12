@@ -1,62 +1,62 @@
-# From Docker
+# За допомогою Docker
 
-## Pre-requisites
+## Передумови
 
-In order to run any docker images, you need to have docker installed. You can find instructions on how to install docker for your machine [here](https://docs.docker.com/get-docker/).
+Для того, щоб запустити будь-які образи докерів, вам потрібно встановити докер. Настанови щодо встановлення докера для вашого комп'ютера можна знайти тут (https://docs.docker.com/get-docker/).
 
-## Downloading the docker image
-The Namada docker image can be found [here](https://github.com/anoma/namada/pkgs/container/namada).
+##  Завантаження образу докера
+Образ докера Namada можна знайти [тут](https://github.com/anoma/namada/pkgs/container/namada).
 
-Under the `Tags` tab, you can find the latest version of the docker image. Click on the link for the correct version of Namada that you are trying to install. For example, if you are trying to install Namada v0.16.0, you would click on the link for `v0.16.0`.
+На вкладці `Tags` ви можете знайти останню версію образу докера. Клацніть на посилання для правильної версії Namada, яку ви намагаєтеся встановити. Наприклад, якщо ви намагаєтеся встановити Namada v0.16.0, вам слід натиснути на посилання `v0.16.0`.
 
-You can find the tag of the downloaded docker image by running `docker images`. The tag will be the first column of the output.
+Ви можете знайти тег завантаженого образу докера, виконавши `docker images`. Тег буде першим стовпчиком виводу.
 
 
-## Running the docker image
+## Запуск образу докера
 
-Once you have downloaded the docker image, it will be useful to export some environment variables:
+Після завантаження образу докера буде корисно експортувати деякі змінні оточення:
 
 ```bash copy
 export CHAIN_ID=<chain-id>
 ```
 
-The following docker run command will run the ledger node:
+Наступна команда запуску докера запустить вузол журналу:
 
 ```bash copy
-docker run -P -i -t $DOCKER_IMAGE <namada command>
+docker run -P -i -t $DOCKER_IMAGE <команда namada>
 ```
 
-Where `<namada command>` is any command you would run after `namada` in the terminal. For example, if you wanted to run `namada client utils join-network --chain-id $CHAIN_ID`, you would run:
+Де `<команда namada>` - це будь-яка команда, яку ви запустите після `namada` у терміналі. Наприклад, якщо ви хочете виконати `namada client utils join-network --chain-id $CHAIN_ID`, вам слід виконати `namada client utils join-network`:
 
 ```bash copy
 docker run -P -i -t $DOCKER_IMAGE client utils join-network --chain-id $CHAIN_ID
 ```
 
-Then in order to run any other ledger commands, one can run:
+Після цього можна запускати будь-які інші команди:
 
 ```bash copy
-docker /bin/bash -c "/bin/bash","-c", "<namada command>"
+docker /bin/bash -c "/bin/bash","-c", "<команда namada>"
 ```
 
-## Alternative method (building the docker image yourself)
+## Альтернативний метод (створення образу докера самостійно)
 
-Alternatively, you can build the docker image yourself!
+Крім того, ви можете створити образ докера самостійно!
 
-Begin by exporting some environment variables:
+Почніть з додавання деяких змінних середовища:
 
 ```bash copy
 export CHAIN_ID=<chain-id>
 export BRANCH=<namada-version>
 ```
 
-For example if you wanted to build the docker image for Namada v0.16.0 and chain-id `public-testnet-69.0.b20a1337aa1`, you would run:
+Наприклад, якщо ви хочете зібрати образ докера для Namada v0.16.0 і ланцюговим ідентифікатором `public-testnet-69.0.b20a1337aa1`, вам слід запустити:
 
 ```bash copy
 export CHAIN_ID=public-testnet-69.0.b20a1337aa1
 export BRANCH=v0.16.0
 ```
 
-Then you can build the docker image by running:
+Після цього ви можете зібрати образ докера за допомогою запуску:
 
 ```bash copy
 git clone https://github.com/anoma/namada-sdk-starter.git
@@ -64,14 +64,15 @@ cd namada-sdk-starter/docker/namada-with-chain/
 docker build --build-arg BRANCH=$BRANCH --build-arg CHAIN_ID=$CHAIN_ID -t namada_testnet_image .
 ```
 
-Which will save the image to your local docker images. You can find the tag of the downloaded docker image by running `docker images`. The tag will be the first column of the output.
+Це збереже зображення у вашій локальній теці образів докерів. Ви можете знайти тег завантаженого образу докера, виконавши `docker images`. Тег буде першим стовпчиком виведеного результату.
 
-Save this docker image as an environment variable 
+Збережіть цей образ докера як змінну оточення 
+
 ```bash copy
 export DOCKER_IMAGE=<tag>
 ```
 
-Then you can run the docker image by running:
+Після цього ви можете запустити докер-образ на виконання:
 
 ```bash copy
 docker run -P -i -t $DOCKER_IMAGE

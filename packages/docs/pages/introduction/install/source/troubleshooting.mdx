@@ -1,20 +1,19 @@
-# Troubleshooting installation from source
+# Усунення несправностей під час встановлення з вихідного коду
 
-### Not enough RAM
-[Building binaries locally](../source.mdx) is a computationally heavy task and will put your computer to the test. The compilation usually requires at least 16 GB of RAM and depending on the optimisation of your machine, could require slightly more (for some machines slightly less). For this reason, compilation can sometimes fail.
+### Недостатньо оперативної пам'яті
+Локальна збірка двійкових файлів](../source.mdx) є важким обчислювальним завданням і може стати випробуванням для вашого комп'ютера. Зазвичай для компіляції потрібно щонайменше 16 ГБ оперативної пам'яті, а залежно від оптимізації вашого комп'ютера може знадобитися трохи більше (для деяких комп'ютерів трохи менше). З цієї причини компіляція іноді може завершитися невдало.
 
-The error
+Помилка
 ```
 src/apps/namada lib could not compile due to previous errors. Exited with exit code:
 ```
-is a common error that can sometimes mean your computer ran out of memory when compiling. To resolve this, I have found closing all other applications and recompiling once or twice will do the trick. Otherwise more RAM will be needed.
+є поширеною помилкою, яка іноді може означати, що на вашому комп'ютері закінчилася пам'ять під час компіляції. Щоб вирішити цю проблему, я виявив, що закриття всіх інших програм і перекомпіляція один або два рази зробить свою справу. В іншому випадку знадобиться більше оперативної пам'яті.
 
-### Compiling for the first time
-Compilation errors due to missing library installations when building the binaries for the first time can be a common problem. 
-
+### Компіляція вперше
+Помилки компіляції через відсутність встановлених бібліотек під час першого збирання двійкових файлів можуть бути поширеною проблемою. 
 
 #### Linker "CC" not found
-If one runs into the error
+Якщо ви зіткнулися з помилкою
 
 ```
 Entering directory '/root/namada/wasm/wasm_source'
@@ -31,13 +30,13 @@ warning: build failed, waiting for other jobs to finish...
 error: could not compile `proc-macro2` due to previous error
 ```
 
-It may be resolved by running
+Це можна вирішити, запустивши
 
 ```bash copy
 sudo apt install build-essential
 ```
 
-Another solution can sometimes be installing `libcland-dev`. This can be achieved through:
+Іншим рішенням іноді може бути встановлення `libcland-dev`. Цього можна досягти за допомогою:
 
 ```bash copy
 sudo apt-get update -y
@@ -46,7 +45,7 @@ sudo apt-get install -y libclang-dev
 
 
 #### WASM32-unknown-unknown
-Another issue the compiler may run into is that it cannot find the `wasm32-unknown-unknown` target.
+Інша проблема, з якою може зіткнутися компілятор, полягає у тому, що він не може знайти ціль `wasm32-unknown-unknown`.
 
 ```
 error[E0463]: can't find crate for `core`
@@ -60,16 +59,16 @@ For more information about this error, try `rustc --explain E0463`.
 error: could not compile `cfg-if` due to 2 previous errors
 ```
 
-This issue can be resolved by running 
+Цю проблему можна вирішити, запустивши 
 
 ```bash copy
 rustup target add wasm32-unknown-unknown
 ```
-(Yes the name of the target is `wasm32-unknown-unknown`. This is not the compiler unable to tell which version/release it is).
+(Так, ім'я цілі - `wasm32-unknown-unknown`. Це не означає, що компілятор не може визначити, яка це версія/випуск).
 
 #### OpenSSL
 
-If you run into the error
+Якщо ви зіткнулися з помилкою
 
 ```
 Could not find directory of OpenSSL installation, and this `-sys` crate cannot
@@ -85,9 +84,9 @@ Could not find directory of OpenSSL installation, and this `-sys` crate cannot
   and include information about your system as well as this message.
 ```
 
-Then the solution is spelled out for you. You need to install the development packages of OpenSSL. For Ubuntu, this is `libssl-dev`. For Fedora, this is `openssl-devel`. For other distributions, please refer to the [OpenSSL website](https://www.openssl.org/).
+Далі рішення прописано для вас. Вам потрібно встановити пакети розробки OpenSSL. Для Ubuntu це `libssl-dev`. Для Fedora це `openssl-devel`. Для інших дистрибутивів, будь ласка, зверніться до [веб-сайту OpenSSL](https://www.openssl.org/).
 
-For Ubuntu, this can be achieved through
+Для Ubuntu цього можна досягти за допомогою
 
 ```bash copy
 sudo apt-get install libssl-dev

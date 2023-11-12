@@ -1,12 +1,12 @@
 import { Callout } from 'nextra-theme-docs'
 
-# Off-chain proposals
+# Пропозиції поза ланцюжком
 
-If for any reason issuing an on-chain proposal is not adequate to your needs, you still have the option to create an off-chain proposal. An off-chain proposal is intended for proposals that do not require any on-chain code execution. The proposal would be distributed on some third-party channel (e.g., a forum) and the voting would be done off-chain. The result of the voting would be computed off-chain and then submitted to the ledger.
+Якщо з якихось причин створення он-лайн заявки не відповідає вашим потребам, у вас все ще є можливість створити офф-лайн заявку. Позамережеві пропозиції призначені для пропозицій, які не потребують виконання коду в мережі. Пропозиція буде поширюватися на якомусь сторонньому каналі (наприклад, на форумі), а голосування буде проводитися в автономному режимі. Результат голосування обчислюється в автономному режимі, а потім передається до реєстру.
 
-## Create proposal
+## Створити пропозицію
 
-Create the same json file as in the on-chain proposal and use the following command:
+Створіть такий самий json-файл, як і в ланцюжковій пропозиції, і скористайтеся наступною командою:
 
 ```shell copy
 namada client init-proposal \
@@ -14,11 +14,11 @@ namada client init-proposal \
     --offline
 ```
 
-This command will create a `proposal` file same directory where the command was launched.
+Ця команда створить файл `proposal` у тому самому каталозі, де було запущено команду.
 
-## Vote on proposal
+## Голосування за пропозицію
 
-To vote on an offline proposal use the following command:
+Щоб проголосувати за офлайн-пропозицію, скористайтеся наступною командою:
 
 ```shell copy
 namada client vote-proposal --data-path proposal \
@@ -28,16 +28,16 @@ namada client vote-proposal --data-path proposal \
     --offline
 ```
 
-## Tally off-chain proposal
+## Підрахунок офлайн-пропозиції
 
-To compute the tally for an offline proposal we need to collect
+Щоб підрахувати результат для офлайн-пропозиції, нам потрібно зібрати
 
-- `proposal` file (must have this name)
-- all the `proposal-vote-${address}` files
+- файл `proposal` (повинен мати таку назву)
+- всі файли `proposal-vote-${адреса}`.
 
-All those files will have to be in a folder (lets call it `offline-proposal`).
+Всі ці файли мають бути в папці (назвемо її `offline-proposal`).
 
-Now you can use the following command:
+Тепер ви можете використовувати наступну команду:
 
 ```shell copy
 namada client query-proposal-result \
@@ -45,9 +45,9 @@ namada client query-proposal-result \
     --data-path `offline-proposal`
 ```
 
-which will tell you the proposal result.
+який повідомить вам результат пропозиції.
 
-## Submit off-chain proposal
+## Подати пропозицію поза ланцюжком
 <Callout type="info">
-The community may decide to post data of their off-chain voting to another censorship resistant blockchain to preserve the decision reached by social consensus.
+Спільнота може вирішити розмістити дані свого позамережевого голосування в іншому стійкому до цензури блокчейні, щоб зберегти рішення, прийняте суспільним консенсусом.
 </Callout>

@@ -1,21 +1,21 @@
 import { Callout } from 'nextra-theme-docs'
 
-# Becoming a steward
+# Як стати управителем
 
-A public goods steward can consist of an arbitrary number of people, and can be a single person. The only requirement is that the steward's multisignature account is elected by the community, through a governance proposal.
+Опікун суспільних благ може складатися з довільної кількості людей, а може бути й однією особою. Єдина вимога полягає в тому, що мультипідписний акаунт стюарда має бути обраний громадою через пропозицію щодо управління.
 
-For this reason, the first step to becoming a steward is to create a multisignature account. 
-This can be done using the commands found in the [multisgnature documentation](../transparent-accounts/multisignature.mdx). 
+Тому першим кроком до того, щоб стати стюардом, є створення облікового запису мультипідпису. 
+Це можна зробити за допомогою команд, знайдених в [документації з мультипідпису] (../transparent-accounts/multisignature.mdx). 
 
-Once the multisig account is created, the steward can submit a governance proposal to elect the account as a steward.
+Після створення облікового запису мультипідпису стюард може подати пропозицію щодо обрання цього облікового запису стюардом.
 
-## Governance proposal
+## Пропозиція щодо управління
 
-The governance proposal required to elect a new steward is `StewardProposal`.
+Пропозиція управління, необхідна для обрання нового стюарда, називається `StewardProposal`.
 
-### Crafting the `proposal.json` file for a `StewardProposal`
+### Створення файлу `proposal.json` для `StewardProposal
 
-The `steward_proposal.json` file contains the information about the proposal. It is a JSON file with the following structure:
+Файл `steward_proposal.json` містить інформацію про пропозицію. Це JSON-файл з наступною структурою:
 
 ```json
 {
@@ -44,50 +44,50 @@ The `steward_proposal.json` file contains the information about the proposal. It
 }
 ```
 
-The `"data"` field contains the structure that allows either the addition or removal of 
-a multisignature account from the list of stewards. In this case, the `"action"` is `"add"`, 
-and the `"address"` is the address of the multisignature account that will be elected as a steward. 
-If the `"action"` was `"remove"`, the `"address"` would be the address of the multisignature account 
-that would be removed from the list of stewards.
+Поле `"data"` містить структуру, яка дозволяє додавати або видаляти 
+облікового запису мультипідпису зі списку стюардів. У цьому випадку `"дія"` - це `"додати"`, 
+а "адреса" - це адреса облікового запису мультипідпису, який буде обрано стюардом. 
+Якщо "дія"` буде "видалити"`, то "адреса"` буде адресою облікового запису мультипідпису 
+який буде вилучено зі списку стюардів.
 
-<Callout>
-In the motivation and abstract field, it is important to make clear what type of 
-public goods funding the steward will be focusing on. 
-The *areas of public goods funding* can be found in the 
-[public goods funding specs](https://specs.namada.net/economics/public-goods-funding.html#funding-focuses).
+<Callout> 
+У полі "Мотивація та абстракція" важливо чітко вказати, який тип суспільних благ 
+фінансування суспільних благ, на якому буде зосереджений стюард. 
+З *сферами фінансування суспільних благ* можна ознайомитися в 
+[специфікації фінансування суспільних благ] (https://specs.namada.net/economics/public-goods-funding.html#funding-focuses).
 </Callout>
 
-### Submitting the proposal to the ledger
+### Подання заявки до реєстру
 
-The CLI command to submit a proposal is:
+Команда CLI для подання заявки виглядає наступним чином:
 
 ```shell copy
 namadac init-proposal \
         --pgf-stewards \
         --data-path <path/to/steward_proposal.json>
 ```
-where `<path/to/steward_proposal.json>` is the path to the `steward_proposal.json` file.
+де `<шлях/до/steward_proposal.json>` - шлях до файлу `steward_proposal.json`.
 
-### Becoming elected
+### Як стати обраним
 
-Once the proposal is submitted, it will be voted on by the community (see [voting](./voting.mdx)). If the proposal passes, the account will become a steward. If the proposal fails, the account will not become a steward.
+Після того, як пропозицію буде подано, за неї проголосує спільнота (див. [голосування](./voting.mdx)). Якщо пропозиція пройде, обліковий запис стане стюардом. Якщо пропозиція не пройде, обліковий запис не стане стюардом.
 
-Once a multisignature account becomes elected (which will happen at the end of the `grace_epoch`), it will be able to submit proposals to the public goods funding pool (see [submitting proposals](./proposing.mdx#proposing-funding)).
+Після того, як акаунт з мультипідписами буде обрано (що станеться наприкінці `grace_epoch`), він зможе подавати пропозиції до пулу фінансування суспільних благ (див. [подача пропозицій](./proposing.mdx#proposing-funding)).
 
-## Losing stewardship
+## Втрата управління
 
-There are 4 ways that a steward can lose their stewardship:
+Існує 4 способи, як стюард може втратити своє повноваження:
 
-1. Resign as a steward
-2. Have a significantly failed funding proposal ($/frac{2}{3}$ of the community votes, and out of these, $/frac{2}{3}$ vote against the proposal)
-3. Become voted out through a governance proposal
-4. They reach the end of their term
+1. Подати у відставку зі статусу стюарда
+2. Значно провалити заявку на фінансування ($/frac{2}{3}$ голосів спільноти, і з них $/frac{2}{3}$ проголосували проти заявки)
+3. Бути виключеним через пропозицію щодо управління
+4. Досягають кінця свого терміну перебування на посаді
 
-Resigning as a steward can be done at any point. 
-Through the CLI it can be done with the command:
+Відставка стюарда може бути здійснена в будь-який момент. 
+Через CLI це можна зробити за допомогою команди:
 
 ```shell copy
 namadac resign-steward --steward my-steward-address
 ```
 
-Read more about the other methods of losing stewardship in the [specs](https://specs.namada.net/economics/public-goods-funding/becoming-a-steward#losing-stewardship-status).
+Дізнайтеся більше про інші способи втрати стюардеси в [специфікації] (https://specs.namada.net/economics/public-goods-funding/becoming-a-steward#losing-stewardship-status).

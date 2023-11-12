@@ -1,11 +1,11 @@
-# Fees on Namada
+# Комісії в Namada
 
-In order to settle the market for Namada blockspace demand, fees are coupled with transactions. In order for any namada transaction to be considered valid, the correct corresponding fee must be paid. The exact fee is set by the user, and must be greater than or equal to the minimum `gas-price` set by governance, which is included in the genesis file under `gas_cost`.
+Для того, щоб врегулювати ринок попиту на блокчейн-простір Namada, до транзакцій додається комісія. Для того, щоб будь-яка транзакція намади вважалася дійсною, необхідно сплатити відповідну комісію. Точний розмір комісії встановлюється користувачем і повинен бути більшим або дорівнювати мінімальній `gas-price`, встановленій керівництвом, яка міститься у файлі генезису в розділі `gas_cost`.
 
-## How fees are paid
-When explicitly stated, the gas fee is paid by the `--gas-payer` flag. If no `--gas-payer` flag is specified, the gas fee is paid by the first key in the `--signing-keys` flag.
+## Як сплачуються комісії
+Якщо це явно вказано, плата за газ сплачується за прапором `--gas-payer`. Якщо прапор `--gas-payer` не вказано, плата за газ сплачується першим ключем у прапорі `--signing-keys`
 
-This means that in the transaction 
+Це означає, що в транзакції 
 ```shell copy
 namada client transfer \
   --source my-new-acc \
@@ -15,9 +15,9 @@ namada client transfer \
   --signing-keys keysha
 ```
 
-the account associated with key `keysha` will be required to pay the fee. This means that even though the account `accountant` may have a positive NAM balance, `keysha` will need to have the associated NAM in order to pay the transaction fee.
+обліковий запис, пов'язаний з ключем `keysha`, буде зобов'язаний сплатити комісію. Це означає, що навіть якщо акаунт `accountant` може мати позитивний баланс NAM, акаунт `keysha` повинен мати асоційований NAM, щоб сплатити комісію за транзакцію.
 
-A user can also specify a `--gas-payer` flag to specify a different account to pay the fee. This is useful in cases where the account that is signing the transaction does not have enough NAM to pay the fee. For example, if `keysha` has a balance of 5 NAM, but `accountant` has a balance of 100 NAM, then the following transaction will be valid:
+Користувач також може вказати прапорець `--gas-payer`, щоб вказати інший рахунок для сплати комісії. Це корисно у випадках, коли на рахунку, який підписує транзакцію, недостатньо NAM для сплати комісії. Наприклад, якщо `keysha` має баланс 5 NAM, а `accountant` має баланс 100 NAM, то наступна транзакція буде дійсною:
 
 ```shell copy
 namada client transfer \
@@ -29,21 +29,21 @@ namada client transfer \
   --gas-payer keysha2
   ```
 
-(Assuming that `keysha2` exists and is in the wallet of the user)
+(Припускаючи, що `keysha2` існує і знаходиться в гаманці користувача)
 
-For testnet purposes, we recommend [using the faucet](../networks/testnets/pow.mdx) to source NAM for transaction fees.
+Для цілей тестової мережі ми рекомендуємо [використовувати кран](../networks/testnets/pow.mdx) для отримання NAM для комісій за транзакції.
 
-## How fees are calculated
-The fee for a transaction is calculated by multiplying `gas-limit` by the gas price.
-Both the `--gas-limit` and the `--gas-price` can be specified by the user. If neither is specified, the default gas limit and minimum gas price is used. The default gas limit for any transaction is currently set to `20_000`.
+### Як розраховуються комісії
+Комісія за транзакцію розраховується шляхом множення `--gas-limit` на ціну газу.
+Користувач може вказати як `--gas-limit`, так і `--gas-price`. Якщо жоден з цих параметрів не вказано, використовується ліміт газу за замовчуванням та мінімальна ціна газу. Ліміт газу за замовчуванням для будь-якої транзакції наразі встановлено на `20_000`.
 
-The minimum gas price is set in the genesis file under `gas_cost`.
+Мінімальна ціна на газ встановлюється у файлі генезису в розділі `gas_cost`.
 
-## How to set the gas price and gas limit
+## Як встановити ціну на газ та ліміт газу
 
-It is recommended to set the `gas-limit` based on the transaction being conducted. In order to estimate the `gas-limit` for a particular transaction, the `--dry-run-wrapper` argument should be provided. This means that the transaction is simulated, but not yet sent to the ledger. 
+Рекомендується встановлювати "ліміт газу" на основі транзакції, що проводиться. Для того, щоб оцінити "ліміт газу" для конкретної транзакції, слід вказати аргумент `--dry-run-wrapper'. Це означає, що транзакція симулюється, але ще не відправляється до книги. 
 
-For example, the following command will simulate a transfer transaction, and return the gas used:
+Наприклад, наступна команда імітує транзакцію передачі і повертає використаний газ:
 
 ```shell copy
 namadac transfer \
@@ -56,14 +56,14 @@ namadac transfer \
   --dry-run-wrapper
 ```
 
-Which will ouptut something along the lines of 
+На виході вийде щось на кшталт 
 
 ```md
 Dry-run result: Transaction is valid. Gas used: 1785;
 ```
-This means that we could reasonably make this transfer transaction with a `gas-limit` of 2000.
+Це означає, що ми могли б обґрунтовано здійснити цю транзакцію з "газовим лімітом" у 2000 році.
 
-Hence, when making the transfer, we could specify the `gas-limit` as follows:
+Таким чином, при здійсненні переказу ми можемо вказати "ліміт газу" наступним чином:
 
 ```shell copy
 namadac transfer \
@@ -76,7 +76,7 @@ namadac transfer \
   --gas-limit 2000
 ```
 
-If for some reason, we wanted to pay a higher gas fee, we could also specify that as follows:
+Якщо з якихось причин ми хотіли б платити вищу плату за газ, ми також могли б вказати це наступним чином:
 
 ```shell copy
 namadac transfer \
@@ -89,16 +89,16 @@ namadac transfer \
   --gas-limit 2000 \
   --gas-price 0.01
 ```
-This will incentivise validators to prioritise this transaction above those with a lower gas price.
+Це стимулюватиме валідаторів надавати перевагу цій транзакції перед транзакціями з нижчою ціною на газ.
 
 
-## Paying fees with tokens in the MASP
+## Сплата зборів токенами в MASP
 
-It is also possible to pay for fees using the MASP. The purpose of this is to ensure that even though a user may not have NAM in their transparent balance, they can still make transparent transactions on chain. This is yet another incentive for users to keep the maximum amount of assets in the MASP.
+Ви також можете сплачувати комісії за допомогою MASP. Це зроблено для того, щоб навіть якщо користувач не має NAM на своєму прозорому балансі, він все одно міг здійснювати прозорі транзакції в ланцюжку. Це ще один стимул для користувачів зберігати максимальну кількість активів на MASP.
 
-In order to pay for fees using the MASP, the user must specify the `--gas-spending-key` flag, and set it the alias of a spending key in your wallet. This will mean that the fees will be deducted from the shielded balance of the spending key, and unshielded to the transparent balance of the `--gas-payer` (or the address corresponding to the first key in the `--signing-keys`), before being paid for by the `--gas-payer`.
+Для того, щоб оплачувати комісії за допомогою MASP, користувач повинен вказати прапорець `--gas-spending-key` і встановити його як псевдонім витратного ключа у своєму гаманці. Це означатиме, що комісія буде списана з екранованого балансу витратного ключа і переведена на прозорий баланс `--gas-payer` (або на адресу, що відповідає першому ключу в `--signing-keys`), перш ніж буде оплачена `--gas-payer`.
 
-For example, if the user has a spending key `spending-key-1` in their wallet, and they want to pay for the fees of a transaction using the MASP, they would run the following command:
+Наприклад, якщо користувач має у своєму гаманці видатковий ключ `spending-key-1` і хоче оплатити комісію за транзакцію за допомогою MASP, він має виконати наступну команду:
 
 ```shell copy 
 namadac transfer \
@@ -110,13 +110,13 @@ namadac transfer \
   --gas-spending-key spending-key-1
 ```
 
-In this example, `keysha` may only have an OSMO balance in their transparent balance, but `spending-key-1` may have a positive NAM balance in their shielded balance. In this case, the NAM will be unshielded to the transparent balance of `keysha`, and then used to pay for the transaction fee.
+У цьому прикладі `keysha` може мати лише залишок OSMO у своєму прозорому балансі, але `spending-key-1` може мати позитивний залишок NAM у своєму екранованому балансі. У цьому випадку NAM буде переведено на прозорий баланс `keysha`, а потім використано для оплати комісії за транзакцію.
 
-### Using a disposable gas payer
+### Використання одноразового газового лічильника
 
-It is also possible to use a disposable gas payer to pay for transaction fees. This is useful in cases where the user does not want to reveal the identity of the `--gas-payer`. In order to use a disposable gas payer, the user must include the `--disposable-gas-payer` flag, AND also must specify a `--gas-spending-key` . This will mean that the fees will be deducted from the shielded balance of the `--gas-spending-key`, and unshielded to the transparent balance of an ephemeral transparent address before being paid for by the ephemeral address.
+Також можна використовувати одноразовий газовий платіж для оплати комісій за транзакції. Це корисно у випадках, коли користувач не бажає розкривати особу `--gas-payer`. Для того, щоб використовувати одноразовий газовий платник, користувач повинен включити прапорець `--disposable-gas-payer`, А також повинен вказати `--gas-spending-key` . Це означатиме, що плата буде списана з екранованого балансу ключа `--gas-spending-key`, і не екранована на прозорий баланс ефемерної прозорої адреси перед тим, як буде оплачена за ефемерною адресою.
 
-For example, if the user has a spending key `spending-key-1` in their wallet, and they want to pay for the fees of a transaction using a disposable address, they would run the following command:
+Наприклад, якщо користувач має у своєму гаманці витратний ключ `spending-key-1` і хоче оплатити комісію за транзакцію, використовуючи одноразову адресу, він повинен виконати наступну команду:
 
 ```shell copy
 namadac transfer \

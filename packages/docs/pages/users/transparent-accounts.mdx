@@ -1,100 +1,100 @@
 import { Callout } from 'nextra-theme-docs'
 
-# An Introduction to Namada Addresses
+# Вступ до адрес Намади
 
-All accounts in Namada have a unique address, exactly one Validity Predicate and optionally any additional data in its dynamic storage sub-space.
+Всі акаунти в Namada мають унікальну адресу, точно один предикат дійсності і, за бажанням, будь-які додаткові дані в підпросторі динамічного зберігання.
 
-There are currently 3 types of account addresses:
-- **Implicit *(not fully supported yet)*:** An implicit account is derived from your keypair and can be used to authorize certain transactions from the account. They can be used as recipients of transactions even if the account has not been used on-chain before.
-- **Established:** Used for accounts that allow the deployment of custom validation logic. These must be created on-chain via a transaction (e.g., [account initialization](./transparent-accounts/send-and-receive-nam-tokens.mdx#initialize-an-established-account)). The address is generated on-chain and is not known until the transaction is applied (the user provides randomness).
-- **Internal:** Special internal accounts, such as protocol parameters account, PoS and IBC.
+Наразі існує 3 типи адрес облікових записів:
+- **Неявний *(ще не повністю підтримується)*:** Неявний акаунт виводиться з вашої пари ключів і може бути використаний для авторизації певних транзакцій з цього акаунта. Він може бути використаний як одержувач транзакцій, навіть якщо обліковий запис раніше не використовувався в ланцюжку.
+- **Встановлений:** Використовується для акаунтів, які дозволяють розгортання власної логіки перевірки. Вони повинні бути створені в ланцюжку за допомогою транзакції (наприклад, [ініціалізація облікового запису](./transparent-accounts/send-and-receive-nam-tokens.mdx#initialize-an-established-account)). Адреса генерується в ланцюжку і не відома до моменту застосування транзакції (користувач забезпечує випадковість).
+- **Внутрішні:** Спеціальні внутрішні акаунти, такі як акаунт параметрів протоколу, PoS та IBC.
 
-## Manage keypairs
+## Керування зв'язкою ключів
 
-Namada uses [ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) keypairs for signing cryptographic operations on the blockchain.
+Namada використовує [ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) пари ключів для підписання криптографічних операцій в блокчейні.
 
-To manage your keys, various sub-commands are available under:
+Для керування ключами доступні різні підкоманди в розділі:
 
 ```shell copy
 namada wallet key
 ```
 
-### Generate a keypair
+### Згенерувати ключі
 
-It is possible to generate keys using the CLI. By doing so, an implicit account address is also derived in the process and added to storage.
+Існує можливість генерувати ключі за допомогою CLI. При цьому неявна адреса облікового запису також буде отримана в процесі і додана до сховища.
 
 ```shell copy
 namada wallet key gen --alias keysha
 ```
 
 <Callout type="info">
-The derived implicit address shares the same `keysha` alias. The previous command has the same effect as `namada wallet address gen --alias keysha`.
+Отримана неявна адреса має той самий псевдонім `keysha`. Попередня команда має той самий ефект, що і `namada wallet address gen --alias keysha`.
 </Callout>
 
-By default, the keys are stored encrypted.
-The encryption password is _not_ a part of key generation randomness.
+За замовчуванням ключі зберігаються у зашифрованому вигляді.
+Пароль шифрування _не_ є частиною випадковості генерації ключів.
 
-Namada wallet supports keypair generation using a [mnemonic code](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) and [HD derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki).
-To generate a keypair for a default path use
+Гаманець Namada підтримує генерацію ключових пар за допомогою [мнемонічного коду](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) та [HD-шляху](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki).
+Щоб згенерувати пару ключів для шляху за замовчуванням, використовуйте
 ```shell copy
 namada wallet key gen --alias keysha --hd-path default
 ```
 
 <Callout type="info">
-The default HD path for Namada is `m/44'/877'/0'/0'/0'`.
+За замовчуванням шлях HD для Namada має вигляд `m/44'/877'/0'/0'/0'`.
 </Callout>
 
-Optionally, the user may specify an additional passphrase that _is used_ as a part of keypair generation randomness.
+За бажанням користувач може вказати додаткову ключову фразу, яка _використовується_ як частина випадковості генерації ключових пар.
 
 <Callout type="error" emoji="🚨">
-WARNING: Keep your mnemonic code and passphrase safe.
-Loss of any of them would inevitably lead to impossible account recovery.
+ПОПЕРЕДЖЕННЯ: Зберігайте свій мнемонічний код і парольну фразу в безпеці.
+Втрата будь-якого з них неминуче призведе до неможливості відновлення акаунта.
 </Callout>
 
-### Restore the keypair
+### Відновити ключі
 
-To recover the keypair from your mnemonic code and passphrase use
+Щоб відновити пару ключі за мнемокодом і парольною фразою, скористайтеся
 ```shell copy
 namada wallet key restore --alias keysha --hd-path default
 ```
 
-### List all known keys
+### Перерахувати всі відомі ключі
 
 ```shell copy
 namada wallet key list
 ```
 
-## Manage addresses
+## Керування адресами
 
 
-To manage addresses, similar to keys, various sub-commands are available:
+Для керування адресами, подібно до клавіш, доступні різні підкоманди:
 
 ```shell copy
 namada wallet address
 ```
 
-### Generate an implicit address
+### Згенеруйте неявну адресу
 
-Let's call the implicit address `accountant`:
+Назвемо неявну адресу `accountant`:
 ```shell copy
 namada wallet address gen --alias accountant
 ```
 
 <Callout type="info">
-Note that this will also generate and save a key from which the address was derived and save it under the same `accountant` alias. Thus, this command has the same effect as `namada wallet key gen --alias accountant`.
+Зауважте, що вона також згенерує і збереже ключ, з якого було отримано адресу, і збереже його під тим самим псевдонімом `accountant`. Таким чином, ця команда має той самий ефект, що і `namada wallet key gen --alias accountant`.
 </Callout>
 
 ```shell copy
 namada wallet address gen --alias keysha --hd-path default
 ```
-generates an address using a [mnemonic code](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) and [HD derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki).
+генерує адресу за допомогою [мнемонічного коду](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) і [шляху виведення HD](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki).
 
-### Restore the address
+### Відновити адресу
 
 ```shell copy
 namada wallet address restore --alias keysha --hd-path default
 ```
-### List all known addresses
+### Перерахуйте всі відомі адреси
 
 ```shell copy
 namada wallet address list

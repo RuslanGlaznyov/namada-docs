@@ -1,18 +1,24 @@
-# Privacy 
+# Конфіденційність 
 
-Namada gives the privacy landscape a different shape, by providing the largest possible unified privacy set in the multichain, and complementing other chains by seeding/retrofitting privacy shielded actions. 
 
-* Namada creates a single asset-agnostic shielded pool for any token fungible and non-fungible token
-* Namada can also seed privacy to users who want to use an asset originating from one base chain on another chain, without losing privacy
-* Namada retrofits privacy to assets that were created and already used in transparent chains
+Namada надає ландшафту приватності іншої форми, забезпечуючи максимально можливий уніфікований набір приватності в мультиланцюжку і доповнюючи інші ланцюжки шляхом запуску/модернізації дій, захищених від несанкціонованого доступу. 
 
-Users should be aware that they can still expose personal information when transferring funds into and out of Namada via the Ethereum bridge or IBC. For example, a user bridging WETH from Ethereum may be able to obfuscate their on-chain identities to *some* on-chain observers by interacting with Smart contract based privacy protocols or centralized exchanges. However, a user transferring a non-fungible token or a low liquidity token that relies on price discovery on-chain, will leak more information by the nature of their asset holdings. This is also true of tokens transferred into and out of Namada via IBC. Once inside the shielded set, a user can perform *shielded actions* such as triggering a cross chain swap. 
 
-Shielded actions are not limited to application chains that are IBC compatible, it works with any chain that is connected to Namada, e.g. Ethereum, and the actions can be generalized to interact with any dApp, such as trading NFTs or staking ETH. For the time being, the only shielded action available is cross chain transfers, but more will be added in the future.
+* Namada створює єдиний захищений пул з діагностикою активів для будь-яких взаємозамінних і не взаємозамінних токенів.
+* Namada також може поширювати конфіденційність для користувачів, які хочуть використовувати актив, що походить з одного базового ланцюжка, в іншому ланцюжку, не втрачаючи при цьому конфіденційність
+* Namada модернізує конфіденційність для активів, які були створені і вже використовуються в прозорих ланцюжках
 
-## Best practices for leaking sensitive data include
 
-* Bridge a highly liquid generic token into the MASP and then once in the MASP performing a shielded action to acquire the relevant tokens
-* Use a different public address to bridge funds into Namada than used for other exposed transactions  
-* Use a TOR browser - Tor protects personal privacy by concealing a user's location and usage from anyone performing network surveillance or traffic analysis
-* Use a VPN - A VPN can mask your IP address, encrypt your internet connection and make your browsing activity more anonymous.
+Користувачі повинні знати, що вони все ще можуть розкривати особисту інформацію при переказі коштів в Namada і з Namada через міст Ethereum або IBC. Наприклад, користувач, який переказує WETH з Ethereum, може приховати свою ідентичність в ланцюжку для *деяких* спостерігачів в ланцюжку, взаємодіючи з протоколами конфіденційності на основі смарт-контрактів або централізованими біржами. Однак, користувач, який передає не взаємозамінний токен або токен з низькою ліквідністю, що покладається на визначення ціни в ланцюжку, буде виточувати більше інформації через природу своїх активів. Це також стосується токенів, які передаються в Namada і з Namada через IBC. Опинившись всередині екранованого набору, користувач може виконувати *екрановані дії*, такі як запуск перехресного обміну ланцюжків. 
+
+
+Екрановані дії не обмежуються ланцюжками додатків, сумісними з IBC, вони працюють з будь-яким ланцюжком, підключеним до Namada, наприклад, Ethereum, і можуть бути узагальнені для взаємодії з будь-яким dApp, наприклад, торгівля NFT або стейкінг ETH. На даний момент єдиною доступною захищеною дією є переказ між ланцюжками, але в майбутньому їх буде додано більше.
+
+
+## Найкращі практики щодо витоку конфіденційних даних включають
+
+
+* Передача високоліквідного загального токена в MASP, а потім, після того, як він опиниться в MASP, виконання захищеної дії для придбання відповідних токенів
+* Використання іншої публічної адреси для переказу коштів в Namada, ніж та, що використовується для інших вразливих транзакцій  
+* Використовуйте TOR-браузер - Tor захищає особисту конфіденційність, приховуючи місцезнаходження та використання користувача від будь-кого, хто здійснює спостереження за мережею або аналіз трафіку
+* Використовуйте VPN - VPN може маскувати вашу IP-адресу, шифрувати ваше інтернет-з'єднання і робити вашу діяльність в Інтернеті більш анонімною.

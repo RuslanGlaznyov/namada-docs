@@ -1,15 +1,15 @@
 import { Callout } from 'nextra-theme-docs'
 
-# Send and Receive NAM tokens
+# Надсилання та отримання токенів NAM
 
-In Namada, tokens are implemented as accounts with the [Token Validity Predicate](https://github.com/anoma/namada/blob/9b67281e359ebff5467cad57c866fbcf91eb80c8/shared/src/ledger/native_vp/multitoken.rs#L30).
-The validity predicate (VP) checks, in particular, that the total supply (of the token) is preserved in any transaction that uses this token. Your wallet will be pre-loaded with some token addresses that are initialized in the genesis block.
+У Namada токени реалізовано у вигляді облікових записів з [Предикатом дійсності токенів] (https://github.com/anoma/namada/blob/9b67281e359ebff5467cad57c866fbcf91eb80c8/shared/src/ledger/native_vp/multitoken.rs#L30).
+Предикат дійсності (VP) перевіряє, зокрема, що загальна пропозиція (токенів) зберігається в будь-якій транзакції, яка використовує цей токен. Ваш гаманець буде попередньо завантажений деякими адресами токенів, які ініціалізуються в блоці генезису.
 
-### Initialize an established account
+### Ініціалізація існуючого облікового запису
 
-If you already have a key in your wallet, you can skip this step. Otherwise, [generate a new keypair](../transparent-accounts.mdx#generate-a-keypair) now.
+Якщо у вас вже є ключ у вашому гаманці, ви можете пропустити цей крок. В іншому випадку, [згенеруйте нову пару ключів](../transparent-accounts.mdx#generate-a-keypair) зараз.
 
-Then, send a transaction to initialize your new established account and save its address with the alias `establishment`. The `keysha` public key will be written into the account's storage for authorizing future transactions. We also sign this transaction with `keysha`.
+Потім надішліть транзакцію для ініціалізації вашого нового створеного облікового запису і збережіть його адресу з псевдонімом `establishment`. Відкритий ключ `keysha` буде записано в сховище облікового запису для авторизації майбутніх транзакцій. Ми також підписуємо цю транзакцію за допомогою `keysha`.
 
 ```shell copy
 namada client init-account \
@@ -19,13 +19,13 @@ namada client init-account \
   --threshold 1
 ```
 
-Once this transaction has been applied, the client will automatically see the new address created by the transaction and add it to your wallet with the chosen alias `establishment`.
+Після застосування цієї транзакції клієнт автоматично побачить нову адресу, створену транзакцією, і додасть її до свого гаманця з обраним псевдонімом `establishment`.
 
-This command uses the prebuilt [User Validity Predicate](https://github.com/anoma/namada/blob/main/wasm/wasm_source/src/vp_user.rs).
+Ця команда використовує попередньо створений предикат [User Validity Predicate] (https://github.com/anoma/namada/blob/main/wasm/wasm_source/src/vp_user.rs).
 
-### Send a Payment
+### Надіслати платіж
 
-To submit a regular token transfer from your account to the `validator-1` address:
+Для відправки регулярного переказу токенів з вашого акаунта на адресу `validator-1`:
 
 ```shell copy
 namada client transfer \
@@ -36,24 +36,24 @@ namada client transfer \
   --signing-keys keysha
 ```
 
-This command will attempt to find and use the key of the source address to sign the transaction.
+Ця команда спробує знайти і використати ключ адреси джерела для підписання транзакції.
 
-### See your balance
+### Подивитися баланс
 
-To query token balances for a specific token and/or owner:
+Для запиту балансу токенів для конкретного токена і/або власника:
 
 ```shell copy
 namada client balance --token NAM --owner my-new-acc
 ```
 
 <Callout type="info">
-For any client command that submits a transaction (`init-account`, `transfer`, `tx`, `update` and [PoS transactions](../../operators/validators/proof-of-stake.mdx)), 
-you can use the `--dry-run-wrapper` flag to simulate the transaction being applied in the block and see what would be the result.
+Для будь-якої клієнтської команди, яка відправляє транзакцію (`init-account`, `transfer`, `tx`, `update` і [PoS-транзакції](../../operators/validators/proof-of-stake.mdx)), 
+ви можете використовувати прапорець `--dry-run-wrapper`, щоб змоделювати транзакцію, яка застосовується в блоці, і подивитися, що буде в результаті.
 </Callout>
 
-### See every known addresses' balance
+### Баланс всіх відомих адрес
 
-You can see the token's addresses known by the client when you query all tokens balances:
+Ви можете побачити адреси токенів, відомі клієнту, коли ви запитуєте баланс всіх токенів:
 
 ```shell copy
 namada client balance

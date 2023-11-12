@@ -1,37 +1,37 @@
-# Delegators
+# Делегати
 
-## Delegators vs Delegates
-All accounts on Namada with any amount of *bonded* NAM, is by definition, either a delegator or a delegate. 
+## Делегатори та Делігати
+Всі рахунки на Namada з будь-якою кількістю *зв'язаних* NAM, за визначенням, є або делігатори, або делігати. 
 
-#### What is a delegator?
-> A delegator is an account that has bonded NAM to a delegate. 
+#### Що таке делігатор?
+> це обліковий запис, який передав NAM до делігату. 
 
-#### What is a delegate?
-> A delegate is an account that has been bonded to by a delegator.
+#### What is a делігат?
+> Делегат - це рахунок, який був прив'язаний до делегата.
 
-## Becoming a delegator
-In order to become a delegator, you must first have an account with positive NAM balance. If you do not have an account, you can follow the instructions [here](./transparent-accounts.mdx) to create one.
+## Як стати делегатом
+Щоб стати делегатом, ви повинні мати обліковий запис з позитивним балансом NAM. Якщо у вас немає акаунта, ви можете створити його, дотримуючись інструкцій [тут] (./transparent-accounts.mdx).
 
-Once you have an account, you can bond your NAM to a delegate. At the time of writing, the only possible delegates are validators. In future Namada versions, there will be the option to delegate to other, non-validating accounts as well.
+Після створення облікового запису ви можете прив'язати свій NAM до делегата. На момент написання статті єдиними можливими делегатами є валідатори. У майбутніх версіях Namada буде можливість делегування іншим акаунтам, які не є валідаторами.
 
-Delegating to a validator is the same as [staking with a validator](../operators/validators/staking.mdx).
+Делегування валідатору відбувається так само, як і [стейкінг з валідатором](../operators/validators/staking.mdx).
 
-First, you may want to list the available validators you can stake to:
+По-перше, ви можете скласти список доступних валідаторів, яким ви можете зробити ставку:
 
 ```bash copy
 namadac bonded-stake
 ```
 
-Once you've found the address of your favourite validator, you can bond to them with the following command:
+Після того, як ви знайшли адресу вашого улюбленого валідатора, ви можете зв'язатися з ним за допомогою наступної команди:
 
 ```bash copy
 namadac bond --validator <validator-address> --amount <amount> --signing-keys <account-alias>
 ```
 
-If you have the alias saved in your wallet, you can also pass `<validator-alias>` instead of `<validator-address>`.
+Якщо у вас є псевдонім, збережений у вашому гаманці, ви також можете передати `<validator-alias>` замість `<validator-address>`.
 
-## Redelegating
-Redelegating is the process of changing the delegate you have bonded to. This process takes 4 epochs, after which your NAM will be redelegated.
+## Переделегування 
+Переделегування - це процес зміни делегата, до якого ви прив'язані. Цей процес займає 4 епохи, після чого ваша ДН буде переделегована.
 
-## Unbonding
-Unbonding is the process of removing your bonded NAM from a delegate. This process is identical to [unbonding tokens from a validator](../operators/validators/staking.mdx#unbonding).
+## Відв'язування
+Відв'язування - це процес видалення вашого зв'язаного NAM з делегата. Цей процес ідентичний до [відкріплення токенів від валідатора] (../operators/validators/staking.mdx#unbonding).

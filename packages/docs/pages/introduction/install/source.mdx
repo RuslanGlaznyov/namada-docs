@@ -1,17 +1,17 @@
 import { Callout } from 'nextra-theme-docs'
 
-# Install from source
+# Встановлення з вихідного коду
 
 <Callout type="warning">
-Please note that, although installing from source is the recommended route for installing namada, it can prove to be difficult, and is not recommended for beginners. For a first time installation, the installation process can take up to an hour. Building binaries from source can also take a long time, depending on your machine.
+Зверніть увагу, що хоча встановлення з вихідного коду є рекомендованим способом встановлення намади, він може виявитися складним і не рекомендується для новачків. При першому встановленні процес інсталяції може зайняти до години. Збірка двійкових файлів з коду також може зайняти багато часу, залежно від вашого комп'ютера.
 </Callout>
 
-## Pre-requisites
+## Передумови
 
-Make sure you have the correct [pre-requisites](./source/pre-requisites.mdx) downloaded and installed.
+Переконайтеся, що ви завантажили та встановили правильні [передумови](./source/pre-requisites.mdx).
 
-## Installing Namada
-Now that you have all the required dependencies installed, you can clone the source code from the [Namada repository](https://github.com/anoma/namada) and build it with:
+## Встановлення Namada
+Тепер, коли ви встановили всі необхідні залежності, ви можете клонувати вихідний код з [Namada](https://github.com/anoma/namada) сховища і встановити з нього:
 
 ```shell copy
 git clone https://github.com/anoma/namada.git
@@ -20,21 +20,21 @@ make install
 ```
 
 <Callout type="warning">
-During internal and private testnets, checkout the latest testnet branch using `git checkout $NAMADA_TESTNET_BRANCH`.
-Where `$NAMADA_TESTNET_BRANCH` is the name of the testnet branch, which will be specified in the [testnet documentation](../testnets/environment-setup.mdx).
+Під час внутрішніх та приватних тестнетів перегляньте останню гілку testnet за допомогою `git checkout $NAMADA_TESTNET_BRANCH`.
+Де `$NAMADA_TESTNET_BRANCH` - це назва гілки testnet, яка буде вказана у [testnet documentation](../testnets/environment-setup.mdx).
 </Callout>
 
-## Adding binaries to `$PATH`
-The binaries should be added to `$PATH` from the `make install` command. 
-However, if this for some reason did not work, a solution may be to copy the binaries 
-from `namada/target/release` to `$HOME/.local/bin/` for example: 
+## Додавання двійкових файлів до `$PATH
+Двійкові файли слід додати до `$PATH` за допомогою команди `make install`. 
+Однак, якщо це з якихось причин не спрацювало, рішенням може бути копіювання двійкових файлів 
+з теки `namada/target/release` до теки `$HOME/.local/bin/`, наприклад: 
 
 ```shell copy 
 cp namada/target/release/namada* $HOME/.local/bin/
 ```
 
-## Using the binaries
-See the page on [using namada binaries](./binaries/overview-of-binaries.mdx) for more information.
+## Використання двійкових файлів
+Додаткову інформацію див. на сторінці [використання двійкових файлів namada](./binaries/overview-of-binaries.mdx).
 
-## Troubleshooting
-Please see the troubleshooting page for [building from source](./source/troubleshooting.mdx) for more information.
+## Усунення несправностей
+Будь ласка, зверніться до сторінки усунення несправностей для [збірки з джерела](./source/troubleshooting.mdx) для отримання додаткової інформації.

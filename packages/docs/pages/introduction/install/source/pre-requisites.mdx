@@ -1,5 +1,5 @@
-# Pre-requisites
-If you'd like to install Namada from source you will have to install some dependencies first: 
+# Передумови
+Якщо ви хочете встановити Namada з вихідного коду, вам потрібно спочатку встановити деякі залежності: 
 
 1. [Rust](https://www.rust-lang.org/tools/install) 
 2. [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
@@ -8,44 +8,45 @@ If you'd like to install Namada from source you will have to install some depend
 5. [LLVM](https://releases.llvm.org/download.html)
 
 ## Rust
-At the end of the installation, make sure that Cargo's bin directory `$HOME/.cargo/bin` is available on your PATH environment variable. You can either restart your shell or run `source $HOME/.cargo/env` to continue.
+Наприкінці встановлення переконайтеся, що каталог bin Cargo `$HOME/.cargo/bin` доступний у вашій змінній оточення PATH. Ви можете перезапустити оболонку або запустити `ource $HOME/.cargo/env` для продовження.
 
-If you already have Rust installed, make sure you're using the latest version by running:
+Якщо у вас вже встановлено Rust, переконайтеся, що ви використовуєте останню версію, запустивши її:
 
 ```shell copy
 rustup update
 ```
 
-## Remaining dependencies
-Then, install the remaining dependencies.
+## Решта залежностей
+Потім встановіть решту залежностей.
 
 {/* TODO: Turn these into code boxes with toggles for OS */}
 
-**Ubuntu:** running the following command should install everything needed:
+**Ubuntu:** запуск наступної команди має встановити все необхідне:
 
 ```shell copy
 sudo apt-get install -y make git-core libssl-dev pkg-config libclang-12-dev build-essential protobuf-compiler
 ```
 
-**Mac:** installing the Xcode command line tools should provide you with almost everything you need:
+**Mac:** встановлення інструментів командного рядка Xcode повинно забезпечити вас майже всім необхідним:
 
 ```shell copy
 xcode-select --install
 ```
 
-`protoc` is also required. On Mac, you can install it with `Homebrew`:
+Також потрібен `protoc`. На Mac ви можете встановити його за допомогою `Homebrew`:
 
 ```shell copy
 brew install protobuf
 ```
 
-When running
+Під час запуску
 ```shell copy
 protoc --version
 ```
-It should output at least:
+Повинена бути версія як мінімум:
+
 ```shell copy
 libprotoc 3.12.0
 ```
 
-Please refer to [protoc-installation doc](https://grpc.io/docs/protoc-installation/) for other installation options.
+Будь ласка, зверніться до [документація по встановленню protoc](https://grpc.io/docs/protoc-installation/) для інших варіантів встановлення.

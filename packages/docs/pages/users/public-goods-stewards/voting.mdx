@@ -1,10 +1,10 @@
-# Voting for stewards and PGF proposals
+# Голосування за стюардів та пропозиції PGF
 
-## Voting for stewards
+## Голосування за стюардів
 
-Any user is allowed (and encouraged) to vote for potential PGF stewards. Once the steward has submitted their proposal to the ledger, the community can vote on it. The voting process is the same as for any other proposal, but the proposal type is `StewardProposal`.
+Будь-який користувач може (і заохочується) голосувати за потенційних стюардів PGF. Після того, як стюард подав свою пропозицію до книги, спільнота може проголосувати за неї. Процес голосування такий самий, як і для будь-якої іншої пропозиції, але тип пропозиції - "Пропозиція стюарда".
 
-The CLI command for voting for a steward is:
+Команда CLI для голосування за стюарда така:
 
 ```shell copy
 namada client vote-proposal \
@@ -13,11 +13,11 @@ namada client vote-proposal \
     --signing-keys <your-alias>
 ```
 
-In order to vote against the proposal, replace `yay` with `nay`.
+Щоб проголосувати проти пропозиції, замініть `yay`(ні) на `nay`(так). 
 
-## Voting for PGF proposals
+## Голосування за пропозиції PGF
 
-Similarly, the command for voting for PGF proposals is:
+Аналогічно виглядає команда для голосування за пропозиції PGF:
 
 ```shell copy
 namada client vote-proposal \

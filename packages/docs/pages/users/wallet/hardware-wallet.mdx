@@ -1,22 +1,22 @@
-## Hardware Wallet
+## Апаратний гаманець
 
-Namada's web wallet extension is compatible with the [Ledger](https://www.ledger.com/) hardware. This guide will walk you through the process of setting up your Ledger device to work with Namada.
+Розширення веб-гаманця Namada сумісне з апаратним забезпеченням [Ledger](https://www.ledger.com/). Цей посібник проведе вас через процес налаштування вашого пристрою Ledger для роботи з Namada.
 
-### Prerequisites
-A ledger device with the latest firmware installed. You can find instructions on how to update your firmware [here](https://support.ledger.com/hc/en-us/articles/360002731113-Update-device-firmware).
+### Необхідні умови
+Пристрій Ledger зі встановленою останньою версією прошивки. Ви можете знайти інструкції щодо оновлення прошивки [тут] (https://support.ledger.com/hc/en-us/articles/360002731113-Update-device-firmware).
 
-Install the javascript npm package [here](https://www.npmjs.com/package/@zondax/ledger-namada).
+Встановіть npm-пакет javascript [тут](https://www.npmjs.com/package/@zondax/ledger-namada).
 
-In order to use the ledger with the web wallet, you will need to install the [Namada Web Wallet](./web-wallet.mdx#install).
+Для того, щоб використовувати леджер з веб-гаманцем, вам потрібно буде встановити [Namada Web Wallet](./web-wallet.mdx#install).
 
-### Connecting your Ledger
-1. Open the Namada web extension.
-2. Under settings, click on the `Connect Ledger` button.
-3. Set an alias for the account that ledger will control the keys for.
-4. You can choose to connect to the ledger via `USB` (recommended) or `HID` (Human Interface Devices). 
-5. The ledger will ask you to confirm the connection. Confirm this connection on your ledger device. 
-6. Once completed, the extension will show the address of the account that the ledger is controlling the keys for.
-7. You can now close the information window and use the ledger to sign transactions.
+### Підключення Вашого реєстру
+1. Відкрийте веб-розширення Namada.
+2. У розділі налаштувань натисніть на кнопку "Підключити книгу".
+3. Встановіть псевдонім для облікового запису, ключами якого буде керувати Ledger.
+4. Ви можете вибрати підключення до реєстру через `USB` (рекомендовано) або `HID` (Human Interface Devices). 
+5. Книга попросить вас підтвердити з'єднання. Підтвердіть підключення на вашому пристрої. 
+6. Після завершення розширення покаже адресу облікового запису, ключі від якого контролюються реєстром.
+7. Тепер ви можете закрити інформаційне вікно і використовувати журнал для підписання транзакцій.
 
-### Sending transactions with the ledger
-See the [web wallet](./web-wallet.mdx#sending-transactions) guide for instructions on how to send transactions with the web wallet.
+### Надсилання транзакцій за допомогою реєстру
+Інструкції щодо надсилання транзакцій за допомогою веб-гаманця див. у посібнику [веб-гаманець](./web-wallet.mdx#sending-transactions).

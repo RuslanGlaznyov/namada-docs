@@ -1,10 +1,10 @@
 import { Callout } from 'nextra-theme-docs'
 
-# Proposing funding
+## Подання заявки на фінансування
 
-## Formatting the `proposal.json`
+## Форматування файлу `proposal.json
 
-Below is an example of a `PGFProposal` that a steward could submit. Note that only stewards will be able to submit these proposals.
+Нижче наведено приклад `PGFProposal`(фінансування суспільних благ пропзиція ), який може подати стюард. Зверніть увагу, що тільки стюарди зможуть подавати ці пропозиції.
 ```json
 {
     "proposal" :{
@@ -45,13 +45,13 @@ Below is an example of a `PGFProposal` that a steward could submit. Note that on
         },  
 }
 ```
-where `<address-of-recipient>` should be changed to the address of the recipient of the funds.
+де `<адреса одержувача>` має бути змінено на адресу одержувача коштів.
 
-Save this file as `PGF_proposal.json` to some memorable path on your machine.
+Збережіть цей файл як `PGF_proposal.json` у певному місці на вашому комп'ютері.
 
-## Submitting the proposal
+## Подання пропозиції
 
-In order to submit the proposal, the steward can use the following command:
+Для того, щоб подати заявку, стюард може використати наступну команду:
 
 ```shell copy
 namada client init-proposal \
@@ -59,11 +59,11 @@ namada client init-proposal \
     --data-path PGF_proposal.json
 ```
 
-The proposal will then be given a `proposal-id` which can be used to query the proposal.
+Пропозиції буде присвоєно `proposal-id`, який можна використовувати для запиту пропозиції.
 
-## Querying the proposal
+## Запит пропозиції
 
-The command for querying the proposal is as follows:
+Команда для запиту пропозиції наступна:
 
 ```shell copy
 namada client query-proposal \

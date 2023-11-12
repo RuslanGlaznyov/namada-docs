@@ -1,11 +1,11 @@
-## File System Wallet
+## Файлова система гаманця
 
-By default, the Namada Wallet is stored under `.namada/{chain_id}/wallet.toml` where keys are stored encrypted. You can change the default base directory path with `--base-dir` and you can allow the storage of unencrypted keypairs with the flag `--unsafe-dont-encrypt`.
+За замовчуванням гаманець Namada зберігається у файлі `.namada/{chain_id}/wallet.toml`, де ключі зберігаються у зашифрованому вигляді. Ви можете змінити шлях до базового каталогу за замовчуванням за допомогою `--base-dir` і дозволити зберігання незашифрованих пар ключів за допомогою прапора `--unsafe-dont-encrypt`.
 
-If the wallet doesn't already exist, it will be created for you as soon as you run a command that tries to access the wallet. A newly created wallet will be pre-loaded with some internal addresses like `pos`, `pos_slash_pool`, `masp` and more.
+Якщо гаманець ще не існує, його буде створено для вас, як тільки ви запустите команду, яка намагається отримати доступ до гаманця. Новостворений гаманець буде попередньо завантажено з деякими внутрішніми адресами, такими як `pos`, `pos_slash_pool`, `masp` тощо.
 
-Currently, the Namada client can load the password via:
+Наразі клієнт Namada може завантажити пароль за допомогою:
 
-- **Stdin:** the client will prompt for a password.
-- **Env variable:** by exporting a ENV variable called `NAMADA_WALLET_PASSWORD` with a value of the actual password.
-- **File:** by exporting an ENV variable called `NAMADA_WALLET_PASSWORD_FILE` with a value containing the path to a file containing the password.
+- **Stdin:** клієнт запитає пароль.
+- **Змінна Env:** шляхом експорту ENV-змінної з назвою `NAMADA_WALLET_PASSWORD` зі значенням фактичного пароля.
+- **File:** шляхом експорту змінної ENV з назвою `NAMADA_WALLET_PASSWORD_FILE` зі значенням, що містить шлях до файлу з паролем.
