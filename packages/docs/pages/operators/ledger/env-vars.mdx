@@ -1,11 +1,11 @@
 import { Callout } from 'nextra-theme-docs'
 import Expandable from "../../../components/Expandable";
 
-# Environment variables
+# Змінні середовища
 
-By default, whenever the namada ledger is started, it will apply the confirguration found in the ledger configuration file.
+За замовчуванням, кожного разу, коли леджер намада запускається, він застосовує підтвердження, яке міститься у файлі конфігурації леджера.
 
-An example of a ledger configuration file is displayed below.
+Приклад файлу конфігурації леджера наведено нижче.
 
 <Expandable>
 ```toml
@@ -122,26 +122,23 @@ temp_dir = ""
 ```
 </Expandable>
 
-However, it is possible to override the configuration by setting environment variables.
-Any variable found in the config can be accessed through environment variables that are constructed in the below manner.
+Однак, можна замінити конфігурацію, встановивши змінні оточення. 
+Доступ до будь-якої змінної, знайденої у конфігурації, можна отримати через змінні оточення, які сконструйовано у наведений нижче спосіб.
 
-### Constructing environment variables
-Names of the recognized environment variables are derived from the configuration keys by:
+### Конструювання змінних оточення
+Назви розпізнаних змінних оточення отримуються з конфігураційних ключів за допомогою:
 
-1. Prepend `NAMADA_` to the key
-2. Uppercase every letter of the key. For example `p2p_pex` becomes `P2P_PEX`
-3. Insert a `__` for each nested value. For example, `ledger.cometbft` becomes `LEDGER__COMETBFT`
+1. Додайте `NAMADA_` до ключа.
+2. Кожну літеру ключа слід вводити у верхньому регістрі. Наприклад `p2p_pex` стане `P2P_PEX`
+3. Вставте `__` для кожного вкладеного значення. Наприклад, `ledger.cometbft` стане `LEDGER__COMETBFT`
 
-Hence, the option `p2p_pex` in `[ledger.cometbft]` can be set by
+Отже, опція `p2p_pex` в `[ledger.cometbft]` може бути задана за допомогою
 ```shell copy
 NAMADA_LEDGER__COMETBFT__P2P_PEX=true # or false, depending on your heart's desires
 ``` 
-in the environment 
+в навколишньому середовищі
 
 <Callout type="warning">
-**Note**: 
-In principle, even `.` can be used for environment variable names. 
-However, in Bash, only the double underscore form can be 
-used, because Bash doesn't allow dots in environment variable names. 
-Therefore, we omit the dot form.
+**Нотатки**: 
+В принципі, для назв змінних оточення можна використовувати навіть символ `.`. Однак у Bash можна використовувати лише форму подвійного підкреслення, оскільки Bash не допускає крапки у назвах змінних оточення. Тому ми уникаємо крапкову форму.
 </Callout>

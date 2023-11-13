@@ -1,14 +1,14 @@
-# Configuring Logging on Namada
+# Налаштування Логування на Namada
 
-The logging of the ledger can be configured by setting the following environment variables.
-Default values are in **bold**.
+Логування леджеру можна налаштувати, встановивши наступні змінні оточення. 
+Значення за замовчуванням виділено **жирним шрифтом**.
 
-| Variable             | Values                                     | Description             |
-| :------------------: | :----------------------------------------: | :---------------------: |
-| `NAMADA_LOG`         | **`info`**, `debug`, `warn`, `error`       | Logging verbosity       |
-| `NAMADA_LOG_COLOR`   | **`true`**, `false`                        | Switch colors on / off  |
-| `NAMADA_LOG_DIR`     |                                            | If set, the logs will be written to files in the specified directory. The log files will be named `namada.log` and `namada.err.log` and compressed using `gzip`. |
-| `NAMADA_LOG_FMT`     | **`full`**, `json`, `pretty`               | Logging format          |
-| `NAMADA_LOG_ROLLING` | **`never`**, `minutely`, `hourly`, `daily` | Rolling logs frequency  |
-| `NAMADA_CMT_STDOUT`  | `true`, **`false`**                        | Print all the CometBFT logs to stdout. (This information may be valuable to validators.) |
-| `CMT_LOG_LEVEL`      | **`info`**, `debug`, `warn`, `error`       | CometBFT logs verbosity |
+| Змінні               | Значення                                   | Опис                     |
+| :------------------: | :----------------------------------------: | :---------------------:  |
+| `NAMADA_LOG`         | **`info`**, `debug`, `warn`, `error`       | Багатослівність логування|
+| `NAMADA_LOG_COLOR`   | **`true`**, `false`                        | Увімкнення / вимкнення кольорів   |
+| `NAMADA_LOG_DIR`     |                                            | Якщо встановлено, журнали будуть записуватися до файлів у вказаному каталозі. Файли журналу будуть називатися `namada.log` та `namada.err.log` і стиснуті за допомогою `gzip`. |
+| `NAMADA_LOG_FMT`     | **`full`**, `json`, `pretty`               | Формат логування           |
+| `NAMADA_LOG_ROLLING` | **`never`**, `minutely`, `hourly`, `daily` | Періодичність прокатки логів   |
+| `NAMADA_CMT_STDOUT`  | `true`, **`false`**                        | Виведіть усі логи CometBFT до stdout. (Ця інформація може бути корисною для валідаторів). |
+| `CMT_LOG_LEVEL`      | **`info`**, `debug`, `warn`, `error`       | Багатослівність логів CometBFT  |
