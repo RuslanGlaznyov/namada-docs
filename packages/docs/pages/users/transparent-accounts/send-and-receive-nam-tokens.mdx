@@ -2,7 +2,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Надсилання та отримання токенів NAM
 
-У Namada токени реалізовано у вигляді облікових записів з [Предикатом дійсності токенів] (https://github.com/anoma/namada/blob/9b67281e359ebff5467cad57c866fbcf91eb80c8/shared/src/ledger/native_vp/multitoken.rs#L30).
+У Namada токени реалізовано у вигляді облікових записів з [Предикатом дійсності токенів](https://github.com/anoma/namada/blob/9b67281e359ebff5467cad57c866fbcf91eb80c8/shared/src/ledger/native_vp/multitoken.rs#L30).
 Предикат дійсності (VP) перевіряє, зокрема, що загальна пропозиція (токенів) зберігається в будь-якій транзакції, яка використовує цей токен. Ваш гаманець буде попередньо завантажений деякими адресами токенів, які ініціалізуються в блоці генезису.
 
 ### Ініціалізація існуючого облікового запису
@@ -21,7 +21,7 @@ namada client init-account \
 
 Після застосування цієї транзакції клієнт автоматично побачить нову адресу, створену транзакцією, і додасть її до свого гаманця з обраним псевдонімом `establishment`.
 
-Ця команда використовує попередньо створений предикат [User Validity Predicate] (https://github.com/anoma/namada/blob/main/wasm/wasm_source/src/vp_user.rs).
+Ця команда використовує попередньо створений предикат [User Validity Predicate](https://github.com/anoma/namada/blob/main/wasm/wasm_source/src/vp_user.rs).
 
 ### Надіслати платіж
 

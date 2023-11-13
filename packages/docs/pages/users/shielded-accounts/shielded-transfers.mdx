@@ -2,16 +2,16 @@ import { Callout } from 'nextra-theme-docs'
 
 # Екрановані перекази
 
-У Namada екрановані перекази забезпечуються за допомогою [Multi-Asset Shielded Pool] (https://specs.namada.net/masp/ledger-integration.html?highlight=MASP#masp-integration-spec) (MASP).
-MASP - це схема з нульовим рівнем знань ([zk-SNARK] (https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof)), яка розширює схему [Zcash Sapling] (https://raw.githubusercontent.com/zcash/zips/master/protocol/sapling.pdf), додаючи підтримку відправки довільних активів. Всі активи в пулі мають однаковий набір анонімності, це означає, що чим більше транзакцій відправляється на MASP, тим сильніші гарантії конфіденційності.
+У Namada екрановані перекази забезпечуються за допомогою [Multi-Asset Shielded Pool](https://specs.namada.net/masp/ledger-integration.html?highlight=MASP#masp-integration-spec) (MASP).
+MASP - це схема з нульовим рівнем знань ([zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof)), яка розширює схему [Zcash Sapling](https://raw.githubusercontent.com/zcash/zips/master/protocol/sapling.pdf), додаючи підтримку відправки довільних активів. Всі активи в пулі мають однаковий набір анонімності, це означає, що чим більше транзакцій відправляється на MASP, тим сильніші гарантії конфіденційності.
 
 ## Використання MASP
 
 Якщо ви знайомі з Zcash, то набір взаємодій, які ви можете виконати з MASP, схожий:
 
-- [**Екрановані перекази:** прозорі на екрановані адреси] (#shielding-transfers)
+- [**Екрановані перекази:** прозорі на екрановані адреси](#shielding-transfers)
 - [**Екрановані перекази:** екрановані на екрановані адреси](#shielded-transfers)
-- [**Екрановані перекази:** екрановані на прозорі адреси](#unshielding-transfers)
+- [**Неекрановані перекази:** екрановані на прозорі адреси](#unshielding-transfers)
 
 Ми розрізняємо два типи ключів:
 - Видатковий ключ** - це тип приватного ключа, який дозволяє будь-якому користувачеві, що володіє ним, витрачати баланс пов'язаної з ним адреси. Для захищених адрес наявність ключа витрат також дозволяє користувачеві переглядати баланс адреси і дані про транзакції.
