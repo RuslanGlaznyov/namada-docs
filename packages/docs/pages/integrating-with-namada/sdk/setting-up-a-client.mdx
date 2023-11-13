@@ -1,11 +1,11 @@
-# Setting up an SDK client
+# Налаштування клієнта SDK
 
-Once the sdk has been imported into the project, it can be used to interact with the Namada blockchain.
-Let's assume we have a node running on ip and port `127.0.0.1:26657` and we want to send a transaction to the network.
+Після того, як sdk було імпортовано в проект, його можна використовувати для взаємодії з блокчейном Namada.
+Припустимо, у нас є вузол, що працює на ip і порту `127.0.0.1:26657`, і ми хочемо відправити транзакцію в мережу.
 
-The SDK may be for various purposes, but in this example we will use it to send a transaction to the network.
+SDK може бути для різних цілей, але в цьому прикладі ми будемо використовувати його для відправки транзакції в мережу.
 
-First, we will need to implement the `Client` so that we can communicate with a running node.
+По-перше, нам потрібно реалізувати `Client`, щоб ми могли спілкуватися з запущеним вузлом.
 
 ```rust
 use reqwest::{Client, Response as ClientResponse};
@@ -97,4 +97,4 @@ impl ClientTrait for SdkClient {
 }
 ```
 
-Now, we are ready to use this client to send transactions.
+Тепер ми готові використовувати цей клієнт для відправки транзакцій.

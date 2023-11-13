@@ -1,6 +1,6 @@
 {
-    "env-vars": "Environment variables",
-    "running-a-full-node": "Setting up the full node",
-    "logging-config": "Logging configurations",
-    "base-directory": "Base directory"
+    "env-vars": "Змінні середовища",
+    "running-a-full-node": "Запуск повної ноди",
+    "logging-config": "Конфігурація логування",
+    "base-directory": "Базовий каталог"
 }

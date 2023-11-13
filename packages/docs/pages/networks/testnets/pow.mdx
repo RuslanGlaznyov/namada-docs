@@ -1,16 +1,15 @@
 import { Callout } from 'nextra-theme-docs'
 
-# The PoW Solution on Namada
+# Рішення PoW на Намаді
 
 <Callout type="info" emoji="🚰">
-The link to the faucet is [https://faucet.heliax.click](https://faucet.heliax.click)
+Посилання на [кран][https://faucet.heliax.click](https://faucet.heliax.click)
 </Callout>
 
-As of `v0.23.1`, the Namada faucet has been moved to be an API call to a server. In order to request tokens, a proof of work challenge must be completed, in order to prevent spamming of the faucet.
+Починаючи з `v0.23.1`, кран Namada було змінено на виклик API до сервера. Для того, щоб запросити токени, необхідно пройти перевірку на підтвердження роботи, щоб запобігти спаму крана.
 
 <Callout type="warning">
-Note that this is not included in Mainnet as it is circumstantial to testnet.
+Зауважте, що цей пункт не включено до Mainnet, оскільки він має відношення до testnet.
 </Callout>
 
-Since [fees are paid by implicit accounts](../../users/fees.mdx), it is recommended to source NAM to one of these accounts as the first step. Afterwards, using the `--gas-payer` flag, you can specify the address of the implicit account to pay for the transaction.
-
+Оскільки [комісії сплачуються неявними рахунками](../../users/fees.mdx), рекомендується на першому кроці згенерувати NAM на один з цих рахунків. Після цього, використовуючи прапорець `--gas-payer`, ви можете вказати адресу неявного облікового запису для оплати транзакції.

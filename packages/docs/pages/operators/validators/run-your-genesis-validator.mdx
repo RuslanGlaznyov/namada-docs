@@ -1,11 +1,11 @@
-# Run your node as a genesis validator
+# Запустіть ваш вузол як валідатор генезису
 
-Once the `CHAIN_ID` has been released, it is possible to join the testnet. If the node joining is registered as a genesis-validator in the genesis file, it will be able to participate in the consensus and produce blocks from the start of the chain. 
+Once the CHAIN_ID has been released, it is possible to join the testnet. If the node joining is registered as a genesis-validator in the genesis file, it will be able to participate in the consensus and produce blocks from the start of the chain.
 
-#### Joining the network
-As a genesis validator, it is then possible to join the network with the `CHAIN_ID` distributed. Let's say this `CHAIN_ID` is `namada-mainnet`.
+#### Приєднання до мережі
+Як валідатор генезису, ви можете приєднатися до мережі з розподіленим `CHAIN_ID`. Скажімо, цей `CHAIN_ID` буде `namada-mainnet`.
 
-In this case, the genesis validator can join the network with:
+У цьому випадку валідатор генезису може приєднатися до мережі за допомогою:
 
 ``` bash copy
 export CHAIN_ID="namada-mainnet"
@@ -13,20 +13,20 @@ namada client utils join-network \
 --chain-id $CHAIN_ID --genesis-validator $ALIAS
 ```
 
-#### Start your node and sync
+#### Запустіть свій вузол і синхронізуйте
 ```bash copy
 NAMADA_LOG=info CMT_LOG_LEVEL=p2p:none,pex:error NAMADA_CMT_STDOUT=true namada node ledger run
 ```
-Optional: If you want more logs, you can instead run
+Необов'язково: Якщо ви хочете отримати більше розгорнуті логи, ви можете замість цього запустити
 ```bash copy
 NAMADA_LOG=debug CMT_LOG_LEVEL=p2p:none,pex:error NAMADA_CMT_STDOUT=true namada node ledger run
 ```
-And if you want to save your logs to a file, you can instead run:
+А якщо ви хочете зберегти свої логи у файл, ви можете замість цього запустити програму:
 ```bash copy
 TIMESTAMP=$(date +%s)
 NAMADA_LOG=debug CMT_LOG_LEVEL=p2p:none,pex:error NAMADA_CMT_STDOUT=true namada node ledger run &> logs-${TIMESTAMP}.txt
 tail -f -n 20 logs-${TIMESTAMP}.txt ## (in another shell)
 ```
-#### If started correctly you should see the following log:
+#### При правильному запуску ви повинні побачити наступний лог:
 `[<timestamp>] This node is a validator ...`
     

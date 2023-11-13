@@ -1,14 +1,14 @@
 import Expandable from "../../components/Expandable";
 
-# Spinning up a local network
+# Запуск локальної мережі
 
-## Prerequisites
+## Передумови
 
-Namada must be installed [from source](../introduction/install/source.mdx) in order to run a local network.
+Для роботи в локальній мережі Namada має бути встановлена [з джерела](../introduction/install/source.mdx).
 
-There is a script that has been written specifically for this purpose, which can be found under `scripts` in the [Namada repository](https://github.com/anoma/namada).
+Існує скрипт, написаний спеціально для цієї мети, який можна знайти в розділі `скрипти` в [репозиторії Namada] (https://github.com/anoma/namada).
 
-### Installing script dependencies
+### Встановлення залежностей скриптів
 
 The script has some dependencies that must be installed in order to run it successfully:
 
@@ -17,67 +17,67 @@ The script has some dependencies that must be installed in order to run it succe
 
 The script will require a genesis configuration file, which is a TOML file that specifies the parameters of the network. Examples of such files can be found in the [anoma-network-config repo](https://github.com/heliaxdev/anoma-network-config) in the `templates` directory.
 
-### Modifying the genesis configuration file
+### Зміна конфігураційного файлу генезису
 
-In order to run the script successfully, all sections of `validators` must be removed from the `toml` file. This is because the script will generate a new set of validators for the network.
+Для успішного запуску скрипта необхідно видалити з файлу `toml` всі розділи `validators`. Це пов'язано з тим, що скрипт згенерує новий набір валідаторів для мережі.
 
-The below code block shows an example of a genesis configuration file that has been modified to remove the `validators` section.
+У наведеному нижче блоці коду показано приклад конфігураційного файлу генерації, який було змінено для видалення розділу `validators`.
 
 <Expandable>
 ```diff
-# Editing genesis config steps
-# Developer network
+# Редагування кроків конфігурації генезису
+# Мережа розробників
 genesis_time = "2021-12-20T15:00:00.00Z"
 native_token = "NAM"
 
-- # 3 genesis validators.
+- # 3 валідатори генезису.
 - [validator.validator-1]
-- # Validator's token balance at genesis.
+- # Баланс токенів валідатора на етапі генезису.
 - tokens = 100000
-- # Amount of the validator's genesis token balance which is not staked.
+- # Сума залишку токенів генерації валідатора, яка не стейкується.
 - non_staked_balance = 100000
-- # VP for the validator account
+- # VP(Сила голосу) для облікового запису валідатора
 - validator_vp = "vp_validator"
-- # Commission rate for rewards
+- # Ставка комісії за винагороду
 - commission_rate = 0.05
-- # Maximum change per epoch in the commission rate
+- # Максимальна зміна ставки комісійних за епоху
 - max_commission_rate_change = 0.01
-- # Public IP:port address
+- # Публічна IP:адреса порту
 - net_address = "52.210.23.30:26656"
 -
 - [validator.validator-2]
-- # Validator's token balance at genesis.
+- # Баланс токенів валідатора на етапі генезису.
 - tokens = 100000
-- # Amount of the validator's genesis token balance which is not staked.
+- # Сума залишку токенів генерації валідатора, яка не стейкується.
 - non_staked_balance = 100000
-- # VP for the validator account
+- # VP(Сила голосу) для облікового запису валідатора
 - validator_vp = "vp_validator"
-- # Commission rate for rewards
+- # Ставка комісії за винагороду
 - commission_rate = 0.05
-- # Maximum change per epoch in the commission rate
+- # Максимальна зміна ставки комісійних за епоху
 - max_commission_rate_change = 0.01
-- # VP for the staking reward account
+- # VP для рахунку винагороди за стейкінг
 - staking_reward_vp = "vp_user"
-- # Public IP:port address
+- # Публічна IP:адреса порту
 - net_address = "63.32.203.239:26656"
 -
 - [validator.validator-3]
-- # Validator's token balance at genesis.
+- # Баланс токенів валідатора на етапі генезису.
 - tokens = 100000
-- # Amount of the validator's genesis token balance which is not staked.
+- # Сума залишку токенів генерації валідатора, яка не стейкується.
 - non_staked_balance = 100000
-- # VP for the validator account
+- # VP(Сила голосу) для облікового запису валідатора
 - validator_vp = "vp_validator"
-- # Commission rate for rewards
+- # Ставка комісії за винагороду
 - commission_rate = 0.05
-- # Maximum change per epoch in the commission rate
+- # Максимальна зміна ставки комісійних за епоху
 - max_commission_rate_change = 0.01
-- # VP for the staking reward account
+- # VP для рахунку винагороди за стейкінг
 - staking_reward_vp = "vp_user"
-- # Public IP:port address
+- # Публічна IP:адреса порту
 - net_address = "54.195.72.213:26656"
 
-# Some tokens present at genesis.
+# Деякі токени присутні в генезисі.
 
 [token.NAM]
 address = "atest1v4ehgw36x3prswzxggunzv6pxqmnvdj9xvcyzvpsggeyvs3cg9qnywf589qnwvfsg5erg3fkl09rg5"
@@ -122,7 +122,7 @@ vp = "vp_token"
 [token.Kartoffel.balances]
 atest1v4ehgw36gc6yxvpjxccyzvphxycrxw2xxsuyydesxgcnjs3cg9znwv3cxgmnj32yxy6rssf5tcqjm3 = 9223372036854
 
-# Some established accounts present at genesis.
+# Деякі відомі свідчення присутні в генезисі.
 
 [implicit.faucet]
 address = "atest1v4ehgw36gc6yxvpjxccyzvphxycrxw2xxsuyydesxgcnjs3cg9znwv3cxgmnj32yxy6rssf5tcqjm3"
@@ -132,32 +132,33 @@ vp = "vp_user"
 address = "atest1v4ehgw36xaryysfsx5unvve4g5my2vjz89p52sjxxgenzd348yuyyv3hg3pnjs35g5unvde4ca36y5"
 vp = "vp_masp"
 
-# Wasm VP definitions
+# Визначення Wasm VP
 
-# Implicit VP
+# Неявний VP
 
 [wasm.vp_implicit]
 filename = "vp_implicit.wasm"
 
-# Default user VP in established accounts
+# Користувач VP за замовчуванням в установлених облікових записах
 
 [wasm.vp_user]
 
-# filename (relative to wasm path used by the node)
+# ім'я файлу (відносно шляху wasm, що використовується вузлом)
+
 
 filename = "vp_user.wasm"
 
-# Validator VP
+# Валідатор VP(Сила голосу)
 
 [wasm.vp_validator]
 filename = "vp_validator.wasm"
 
-# Token VP
+# Текен VP(Сила голосу)
 
 [wasm.vp_token]
 filename = "vp_token.wasm"
 
-# MASP VP
+# MASP VP(Сила голосу)
 
 [wasm.vp_masp]
 filename = "vp_masp.wasm"
@@ -166,154 +167,154 @@ filename = "vp_masp.wasm"
 
 [parameters]
 
-# Minimum number of blocks in an epoch.
+# Мінімальна кількість блоків в епосі.
 
 min_num_of_blocks = 5
 
-# Maximum expected time per block (in seconds).
+# Максимальний очікуваний час на блок (у секундах).
 
 max_expected_time_per_block = 11
 
-# Implicit VP WASM name
+# Неявна назва VP WASM
 
 implicit_vp = "vp_implicit"
 
-# Expected number of epochs per year (also sets the min duration of an epoch in seconds)
+# Очікувана кількість епох на рік (також задає мінімальну тривалість епохи в секундах)
 
 epochs_per_year = 262800 # ~120 sec epoch duration (60*60*24\*365 / 120)
 
-# The P gain factor in the Proof of Stake rewards controller
+# Коефіцієнт посилення P в контролері винагород Proof of Stake
 
 pos_gain_p = 0.1
 
-# The D gain factor in the Proof of Stake rewards controller
+# Коефіцієнт посилення D у контролері винагород Proof of Stake
 
 pos_gain_d = 0.1
 
-# The wrapper tx fixed fees
+# Фіксована плата за обгортку tx
 
 wrapper_tx_fees = "5"
 
-# The max size of blocks in bytes
+# Максимальний розмір блоків у байтах
 
 max_proposal_bytes = 5242880
 vp_whitelist = []
 tx_whitelist = []
 max_public_key_per_account = 15
-#Maximum number of signatures required per transaction
+#Максимальна кількість підписів, необхідних для однієї транзакції
 max_signature_per_tx = 15
 
-# Proof of stake parameters.
+# Proof of stake(Доказ частки) Параметри.
 
 [pos_params]
 
-# Maximum number of active validators.
+# Максимальна кількість активних валідаторів.
 
 max_validator_slots = 128
 
-# Pipeline length (in epochs). Any change in the validator set made in
+# Довжина конвеєра (в епохах). Будь-яка зміна у наборі валідаторів, зроблена у
 
-# epoch 'n' will become active in epoch 'n + pipeline_len'.
+# epoch 'n', стане активною в epoch 'n + pipeline_len'.
 
 pipeline_len = 2
 
-# Unbonding length (in epochs). Validators may have their stake slashed
+# Тривалість розблокування (в епохах). Валідаторам може бути урізано частку
 
-# for a fault in epoch 'n' up through epoch 'n + unbonding_len'.
+# за помилку в епосі 'n' до епохи 'n' + unbonding_len.
 
 unbonding_len = 4
 
-# Votes per fundamental staking token (namnam)
+# Кількість голосів за один базовий токен (namnam)
 
 tm_votes_per_token = 1.0
 
-# Reward for proposing a block.
+# Винагорода за пропозицію блоку.
 
 block_proposer_reward = 0.125
 
-# Reward for voting on a block.
+# Винагорода за голосування на дільниці.
 
 block_vote_reward = 0.1
 
-# Maximum inflation rate per annum (10%)
+# Максимальний рівень інфляції на рік (10%)
 
 max_inflation_rate = 0.1
 
-# Targeted ratio of staked tokens to total tokens in the supply
+# Цільове співвідношення стейкнутих токенів до загальної кількості токенів у пропозиції
 
 target_staked_ratio = 0.6667
 
 # Portion of a validator's stake that should be slashed on a duplicate
 
-# vote.
+# голосування.
 
 duplicate_vote_min_slash_rate = 0.001
 
-# Portion of a validator's stake that should be slashed on a light
+# Частина колоди валідатора, яку потрібно перерізати на світлі
 
 # client attack.
 
 light_client_attack_min_slash_rate = 0.001
 cubic_slashing_window_length = 1
 
-# Governance parameters.
+# Параметри управління.
 
 [gov_params]
 
-# minimum amount of xan token to lock
+# мінімальна кількість токенів xan для блокування
 
 min_proposal_fund = 100
 
-# proposal code size in kibibytes (KiB)
+# розмір коду пропозиції в кібібайтах (KiB)
 
 max_proposal_code_size = 300000
 
-# min proposal period length in epochs
+# min довжина періоду пропозиції в епохах
 
 min_proposal_period = 3
 
-# max proposal period length in epochs
+# максимальна тривалість періоду пропозиції в епохах
 
 max_proposal_period = 6
 
-# maximum number of characters in the proposal content
+# максимальна кількість символів у змісті пропозиції
 
 max_proposal_content_size = 10000
 
-# minimum epochs between end and grace epoch
+# мінімальні епохи між кінцем та `grace` епохою
 
 min_proposal_grace_epochs = 0
 
 ````
 </Expandable>
 
-### Building wasm
+### Збірка wasm
 
-The script will also require all `wasm` files for transactions to be built. This can be done by running the following command (whilst in the namada directory):
+Скрипт також вимагатиме збірки всіх файлів `wasm` для транзакцій. Це можна зробити, виконавши наступну команду (перебуваючи у каталозі namada):
 
 ```shell
 make build-wasm-scripts
 ````
 
-## Running the script
+## Запуск скрипта
 
-The script is called `build_network.sh` and can be run with the following command:
+Скрипт називається `build_network.sh` і може бути запущений за допомогою наступної команди:
 
 ```shell
 # Ensure you are in the root of the namada repository directory
 ./scripts/build_network.sh <config_toml> <namada_dir> <OPTIONAL: base_dir>
 ```
 
-More specifically, the script takes three arguments:
+Детальніше, скрипт приймає три аргументи:
 
-1. `config_toml`: the path to the ([validator-free](#modifying-the-genesis-configuration-file)) genesis configuration file.
-2. `namada_dir`: the path to the Namada [binaries directory](../introduction/install/binaries/overview-of-binaries.mdx).
-   If the binaries were build using `make build-release` this would imply the `namada/target/release` directory.
-   Otherwise, if they were built using `make build` it would be the `namada/target/debug` directory.
-3. `base_dir`: (optional argument) the path to the BASE_DIR directory, where all chain-data is stored.
-   This is only necessary if the BASE_DIR is not the default given by `namadac utils default-base-dir` command.
+1. `config_toml`: шлях до файлу конфігурації генезису ([без валідатора](#модифікація-файлу-конфігурації-генезису)).
+2. `namada_dir`: шлях до каталогу двійкових файлів Namada (../introduction/install/binaries/overview-of-binaries.mdx).
+   Якщо двійкові файли було зібрано за допомогою `make build-release`, це означатиме каталог `namada/target/release`.
+   Інакше, якщо їх було зібрано за допомогою `make build`, це буде каталог `namada/target/debug`.
+3. `base_dir`: (необов'язковий аргумент) шлях до каталогу BASE_DIR, де зберігаються всі дані ланцюжка.
+   Це необхідно лише у випадку, якщо BASE_DIR не є директорією за замовчуванням, заданою командою `namadac utils default-base-dir`.
 
-For example, a MacOS user would run something along the lines of:
+Наприклад, користувач MacOS може виконати щось на кшталт:
 
 ```shell
 ./scripts/build_network.sh \
@@ -321,18 +322,18 @@ For example, a MacOS user would run something along the lines of:
 ./target/release # Assuming the binaries were built using `make build-release`
 ```
 
-## Running the ledger
+## Запуск бухгалтерської Ledger
 
-After the script has been run, a python process will have started in the background.
-The ledger can be run through the familiar command:
+Після запуску скрипту у фоновому режимі буде запущено процес на python.
+Ledger можна запустити за допомогою знайомої команди:
 
 ```shell
 target/release/namada ledger # Assuming the binaries were built using `make build-release`
 ```
 
-## Cleaning up
+## Очищення
 
-After the local network has fulfilled its purpose, it can be cleaned up by running the following commands found in the cleanup function of the script:
+Після того, як локальна мережа виконала своє призначення, її можна очистити, виконавши наступні команди у функції очищення скрипта:
 
 ```shell copy
     pkill -f ".hack/chains"

@@ -1,10 +1,10 @@
 {
-  "wallet": "Using the Namada wallet",
-  "transparent-accounts": "Transparent accounts",
+  "wallet": "Використання Namada гаманця",
+  "transparent-accounts": "Прозорі рахунки",
   "shielded-accounts": "The MASP",
-  "fees": "Fees on Namada",
-  "delegators": "Delegating stake on Namada",
-  "governance": "Governance and Public Goods Funding",
+  "fees": "Комісії в Namada",
+  "delegators": "Делегування в Namada",
+  "governance": "Управління Namada",
   "public-goods-stewards": "PGF",
-  "ibc": "IBC transfers"
+  "ibc": "IBC транзакції"
 }

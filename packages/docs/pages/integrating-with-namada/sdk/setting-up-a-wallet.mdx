@@ -1,8 +1,8 @@
-# Setting up an SDK wallet
+# Налаштування гаманця SDK
 
-## Relevant imports
+## Відповідний імпорт
 
-### General imports
+### Головні імпорти
 ```rust
 // namada_sdk::Namada is a high level interface in order to interact with the Namada SDK
 use namada_sdk::Namada;
@@ -10,7 +10,7 @@ use namada_sdk::Namada;
 use namada_sdk::NamadaImpl;
 ```
 
-### Wallet specific imports
+### Імпорт для конкретних гаманців
 
 ```rust
 // SecretKey, common and SchemeType give access to Namada cryptographic keys and their relevant implementations. Namada supports ED25519 and SECP256K1 keys.
@@ -20,9 +20,9 @@ use namada_sdk::core::types::key::{common, SchemeType};
 use namada_sdk::wallet::fs::FsWalletUtils;
 ```
 
-## Creating a wallet from a mnemonic
+## Створення гаманця з мнемоніки
 
-The SDK can create a wallet from a mnemonic phrase. The mnemonic phrase is a 24 word phrase that can be used to restore a wallet. 
+SDK може створити гаманець з мнемонічної фрази. Мнемонічна фраза - це фраза з 24 слів, яку можна використовувати для відновлення гаманця. 
 
 ```rust
 let mnemonic = Mnemonic::from_phrase(MNEMONIC_CODE, namada_sdk::bip39::Language::English)
@@ -49,11 +49,11 @@ let (_key_alias, sk) = NamadaImpl::new(&http_client, &mut wallet, &mut shielded_
             .unwrap();
 ```
 
-In the second part of the above function, the key is derived from the mnemonic phrase. The `alias` is the name of the key that will be stored in the wallet. The `derivation_path` is the path to the key in the HD wallet. The `mnemonic` is the mnemonic phrase that was generated earlier. The `shielded_ctx` is the context for the shielded transactions. The `NullIo` is the IO context for the wallet.
+У другій частині вищевказаної функції ключ отримується з мнемонічної фрази. Псевдонім - це ім'я ключа, який буде зберігатися в гаманці. Шлях_походження - це шлях до ключа у гаманці HD. Мнемонічна фраза - це мнемонічна фраза, яка була згенерована раніше. Shielded_ctx - контекст для екранованих транзакцій. NullIo - контекст вводу-виводу для гаманця.
 
-## Generating a new wallet and saving it to the filesystem
+## Створення нового гаманця і збереження його у файловій системі
 
-It is also possible to create the sdk wallet from scratch. This is more involved because it requires generating a new store for the wallet to exist in.
+Також можна створити гаманець sdk з нуля. Це більш складний процес, оскільки вимагає створення нового сховища для існування гаманця.
 
 ```rust
 use std::path::PathBuf;
@@ -124,4 +124,4 @@ impl WalletUtils for SdkWalletUtils {
 }
 ```
 
-The above code allows us now to construct any instance of the `SdkWallet` by simply passing in a secret key and the address for the `NAM` token. If we wish to make transfers with other tokens, we would need to add those addresses as well.
+Наведений вище код дозволяє нам створити будь-який екземпляр `SdkWallet`, просто передавши секретний ключ і адресу для токена `NAM`. Якщо ми захочемо здійснювати перекази за допомогою інших токенів, нам потрібно буде додати і ці адреси.

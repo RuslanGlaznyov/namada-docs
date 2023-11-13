@@ -1,5 +1,5 @@
 {
-  "source": "Source",
-  "binaries": "Binaries",
+  "source": "Вихідний код",
+  "binaries": "Бінарні файли",
   "docker": "Docker"
 }

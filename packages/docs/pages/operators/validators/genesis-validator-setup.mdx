@@ -1,21 +1,21 @@
 import { Callout } from 'nextra-theme-docs'
 
-# Genesis validator setup
+# Налаштування валідатора Genesis
 
-A genesis validator is one which is a validator right from the first block of the chain, i.e., at genesis. The details of genesis validators are hardcoded into the genesis file that is distributed to all users who want to interact with a chain.
+Генезисний валідатор - це валідатор, який є валідатором з першого блоку ланцюжка, тобто на етапі генезису. Інформація про валідаторів генезису жорстко закодована у файлі генезису, який розповсюджується серед усіх користувачів, які хочуть взаємодіяти з ланцюжком.
 
-### Prerequisites
+### Пкередумови
 
-- a machine that meets the [requirements](../hardware.mdx) for running a validator node
-- an associated public IPv4 address with ports 26656 reachable from anywhere for P2P connections
+- машина, яка відповідає [вимогам](../hardware.mdx) для запуску вузла валідатора
+- асоційовану публічну IPv4-адресу з портами 26656, доступну з будь-якого місця для P2P-з'єднань
 
-## Pre-genesis
+## Прегенезис
 
-To setup all the [required keys](#required-keys) for a genesis validator for an upcoming network, you can execute the following command with an alias of your choice. Note that this alias is public (the address of your validator account will be visible in every wallet) and must be unique within the network.
+Щоб налаштувати всі [необхідні ключі] (#required-keys) для валідатора генезису для майбутньої мережі, ви можете виконати наступну команду з псевдонімом на ваш вибір. Зверніть увагу, що цей псевдонім є публічним (адреса вашого облікового запису валідатора буде видно в кожному гаманці) і повинен бути унікальним в межах мережі.
 
-You must also provide a static `{IP:port}` to the `--net-address` argument of your future node's P2P address.
+Ви також повинні вказати статичний `{IP:порт}` в аргументі `--net-address` майбутньої P2P-адреси вашого майбутнього вузла.
 
-### 1. Create your validator keys:
+### 1. Створіть ключі валідатора:
 ``` bash
 export ALIAS="CHOOSE_A_NAME_FOR_YOUR_VALIDATOR"
 export PUBLIC_IP="LAPTOP_OR_SERVER_IP"
@@ -24,10 +24,10 @@ namada client utils init-genesis-validator --alias $ALIAS \
 --net-address $PUBLIC_IP:26656
 ```
 
-### 2. After generating your keys, the command will print something like this:
+### 2. Після генерації ключів команда виведе щось на зразок цього:
 
 <Callout type="info">
-If you have set the variable $XDG_DATA_HOME this is where the pre-genesis TOML will be written to. Otherwise see below for the default locations.
+Якщо ви встановили змінну $XDG_DATA_HOME, саме туди буде записано попередній TOML. В іншому випадку дивіться нижче розташування за замовчуванням.
 </Callout>
 
 #### Linux 
@@ -40,7 +40,7 @@ Pre-genesis TOML written to $HOME/.local/share/namada
 Pre-genesis TOML written to /Users/$USER/Library/Application\ Support/Namada
 ```
 
-### 3. Save this directory as an environment variable for later use:
+### 3. Збережіть цей каталог як змінну середовища для подальшого використання:
 
 #### Linux 
 ```shell copy
@@ -51,11 +51,11 @@ export BASE_DIR="$HOME/.local/share/namada"
 export BASE_DIR="/Users/$USER/Library/Application\ Support/Namada"
 ```
 
-This file is the public configuration of your validator. You can safely share this file with the network's organizer, who is responsible for setting up and publishing the finalized genesis file and Namada configuration for the chain.
+Цей файл є публічною конфігурацією вашого валідатора. Ви можете безпечно поділитися цим файлом з організатором мережі, який відповідає за налаштування та публікацію остаточного файлу генезису та конфігурації Namada для ланцюжка.
 
-Note that the wallet containing your private keys will also be written into this directory.
+Зверніть увагу, що гаманець, який містить ваші приватні ключі, також буде записано до цього каталогу.
 
-### 4. You can print the validator.toml by running: 
+### 4. Ви можете надрукувати файл validator.tml на виконання:
 
 ### Linux 
 ```shell copy
@@ -67,12 +67,12 @@ cat $HOME/.local/share/namada/pre-genesis/$ALIAS/validator.toml
 cat $HOME/Library/Application\ Support/Namada/pre-genesis/$ALIAS/validator.toml
 ```
 
-## Required keys
+## Необхідні ключі
 
-- Account key: Can be used to sign transactions that require authorization in the default validator validity predicate, such as a balance transfer.
-- Staking rewards key: Can be used to sign transactions on the PoS staking rewards account.
-- Protocol key: This key is used by the validator's ledger itself to sign protocol transaction on behalf of the validator.
-- DKG key: Special key needed for participation in the DKG protocol.
-- Consensus key: Used in CometBFT consensus layer. Currently, this key is written to a file which is read by CometBFT.
-- Eth hot key: Used for validating eth-bridge transactions.
-- Eth cold key: Used for emergency eth-bridge operations. 
+- Ключ облікового запису: Може використовуватися для підписання транзакцій, які вимагають авторизації в предикаті валідатора за замовчуванням, наприклад, для переказу балансу.
+- Ключ стейкінгових винагород: Може використовуватися для підписання транзакцій на рахунку стейкінгових винагород PoS.
+- Ключ протоколу: Цей ключ використовується самим реєстром валідатора для підписання протокольних транзакцій від імені валідатора.
+- Ключ DKG: Спеціальний ключ, необхідний для участі в протоколі DKG.
+- Ключ консенсусу: Використовується в шарі консенсусу CometBFT. В даний час цей ключ записаний у файл, який зчитується CometBFT.
+- Гарячий ключ eth: Використовується для перевірки транзакцій eth-міст.
+- Холодний ключ eth: Використовується для екстрених операцій eth-міст. 

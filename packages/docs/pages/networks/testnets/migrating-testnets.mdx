@@ -1,75 +1,74 @@
 import { Callout, Steps } from 'nextra-theme-docs'
 
-# Steps for migrating testnets
+# Кроки для міграції тестових мереж
 
-This guide will help you migrate your validator node from one testnet to another. These steps are optional, and for most testnets, these steps will not be needed.
+Цей посібник допоможе вам перенести вузол валідатора з однієї тестової мережі до іншої. Ці кроки є необов'язковими, і для більшості тестових мереж вони не знадобляться.
 
-## Resetting your validator node (optional)
+## Скидання вузла валідатора (необов'язково)
 
 <Callout type="info">
-With the release of `v0.19.0` we have introduced mandatory keys for validators. These keys are `eth_hot_key` and `eth_cold_key` that are used for Ethereum bridge purposes.
+З випуском `v0.19.0` ми ввели обов'язкові ключі для валідаторів. Це ключі `eth_hot_key` і `eth_cold_key`, які використовуються для моста Ethereum.
 </Callout>
 
-### Locate the namada base directory
+### Знаходження базового каталогу namada
 
-Depending on the testnet you are migrating from, the base directory will be located in different places.
-For this reason, we will save the base directory path to a variable.
+Залежно від тестової мережі, з якої ви мігруєте, базовий каталог може знаходитися у різних місцях.
+З цієї причини ми збережемо шлях до базового каталогу у змінну.
 
-#### Before `v0.15.3`
-If you are migrating from a testnet BEFORE `v0.15.3`, then your home directory and relevant files will be located in a `.namada`. The location of this directory depends where you initially ran the command `namadac utils join-network --chain-id <CHAIN_ID> --genesis-validator <ALIAS>`. It will be located in the directory in which that command was executed.
+#### До `v0.15.3
+Якщо ви мігруєте з тестової мережі ДО `v0.15.3`, то ваш домашній каталог і відповідні файли будуть розташовані у каталозі `.namada`. Розташування цього каталогу залежить від того, де ви спочатку виконали команду `namadac utils join-network --chain-id <CHAIN_ID> --genesis-validator <ALIAS>`. Він буде розміщений у каталозі, у якому було виконано цю команду.
 
-Once located, you can save the base directory path to a variable. For example, if the join-network command was ran from your home directory, you can run:
+Після знаходження ви можете зберегти шлях до базового каталогу у змінну. Наприклад, якщо команду join-network було виконано з вашого домашнього каталогу, ви можете запустити її:
 ```bash copy
 export BASE_DIR=$HOME/.namada
 ```
 
-#### After `v0.15.3`
-If you are migrating from a testnet AFTER `v0.15.3`, then your base directory and relevant files will be located in `.local/share/namada` on Linux and `Library/Application Support/Namada` on MacOS. You can verify the default directory on your machine by running:
+#### Після `v0.15.3`
+Якщо ви мігруєте з тестової мережі ПІСЛЯ `v0.15.3`, то ваш базовий каталог і відповідні файли будуть розташовані у `.local/share/namada` у Linux і `Library/Application Support/Namada` у MacOS. Ви можете перевірити каталог за замовчуванням на вашому комп'ютері шляхом запуску:
 ```bash copy
 export BASE_DIR=$(namadac utils default-base-dir)
 ```
 
 
 <Callout type="info" emoji="🤓">
-Technically, the correct directory will be the one assigned to `$XDG_DATA_HOME`, 
-but if you haven't set that variable, it will default to the one given above.
+Технічно, правильним каталогом буде той, який призначено змінній `$XDG_DATA_HOME`, 
+але якщо ви не встановили цю змінну, то за замовчуванням вона буде відповідати наведеному вище.
 </Callout>
 
 <Steps>
-### IMPORTANT! Save your `pre-genesis` folder in the ledger base directory
+### ВАЖЛИВО! Збережіть папку `pre-genesis` в директорії бази даних книги
 
-Before we delete any folders, we want to make sure we save our `pre-genesis` folder. This folder contains your validator keys, and we want to make sure we don't lose them.
+Перш ніж видаляти будь-які папки, ми хочемо переконатися, що зберегли нашу папку `pre-genesis`. Ця тека містить ваші ключі валідатора, і ми хочемо переконатися, що не втратимо їх.
 
 ```bash copy
 mkdir $HOME/backup-pregenesis && cp -r $BASE_DIR/pre-genesis $HOME/backup-pregenesis/
 ```
 
-### **Ensure keys are saved**
+### **Переконайтеся, що ключі збережено**.
 
-`ls backup-pregenesis` should output a saved `wallet.toml`.
+`ls backup-pregenesis` має вивести збережений `wallet.toml`.
 
-###  Delete the base directory
+### Видаліть базовий каталог
 
 ```bash copy
 rm -rf $BASE_DIR/*
 ```
 
-### Check that namada and cometbft binaries are correct. 
+### Перевірте правильність двійкових файлів namada та cometbft. 
 
 `namada --version` should yield `v0.22.0` and `cometbft version` should output `0.37.2`
 
 
 
-### Create a pre-genesis directory
+### Створіть каталог pre-genesis
 
 ```bash copy
 mkdir $BASE_DIR/pre-genesis
 ```
 
-### Copy the backuped file back to `$BASE_DIR/pre-genesis` folder
+### Скопіюйте файл резервної копії назад до теки `$BASE_DIR/pre-genesis`.
 ```bash copy
 cp -r backup-pregenesis/* $BASE_DIR/pre-genesis/
 ```
 </Steps>
 
-**You should now be ready to go!**

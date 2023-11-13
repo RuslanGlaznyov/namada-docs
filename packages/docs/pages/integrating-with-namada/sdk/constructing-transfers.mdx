@@ -1,14 +1,14 @@
-# Constructing transfers
+# Створення переказів
 
-Now that we have the wallet and client set up, we can create the environment necessary for constructing transfers.
-This can be a bit tricky, but the below boilerplate code should do the trick:
-The following imports will be needed in order to generate transfers:
+Тепер, коли ми налаштували гаманець і клієнт, ми можемо створити середовище, необхідне для побудови переказів.
+Це може бути трохи складно, але наведений нижче шаблонний код повинен зробити свою справу:
+Для створення переказів буде потрібно виконати наступний імпорт:
 
 ```rust
 use namada_sdk::args::InputAmount;
 ```
 
-After the user has [generated an account](./generating-accounts.mdx) and created the appropriate struct, it is not too difficult to construct and submit transfer transactions.
+Після того, як користувач [згенерував акаунт](./generating-accounts.mdx) і створив відповідну структуру, не так вже й складно створити і відправити транзакції переказу.
 
 ```rust
 let mut namada = NamadaImpl::new(&http_client, &mut wallet, &mut shielded_ctx, &NullIo)
@@ -43,13 +43,13 @@ async fn gen_transfer<'a>(
 }
 ```
 
-Other transactions can be constructed in a similar fashion.
+Інші транзакції можуть бути побудовані подібним чином.
 
-## Shielded transfers
+## Екрановані перекази
 
-In order to make the transfer shielded, we need to the only difference is to use shielded addresses and keys instead of transparent ones.
+Для того, щоб зробити переказ екранованим, нам потрібно лише використовувати екрановані адреси та ключі замість прозорих.
 
-It is important to use the shielded extended `SpendingKey` as the source.
+Важливо використовувати екранований розширений `SpendingKey` як джерело.
 
 ```rust
 

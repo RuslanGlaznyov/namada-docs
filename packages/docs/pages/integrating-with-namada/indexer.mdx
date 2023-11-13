@@ -3,17 +3,17 @@ import { Callout } from 'nextra-theme-docs'
 
 # Namada Indexer
 
-In collaboration with [Zondax](https://zondax.ch/), an indexer for the Namada blockchain has been born.
+У співпраці з [Zondax](https://zondax.ch/) було створено індексатор для блокчейну Namada.
 
-The Namada indexer (a.k.a `namadexer`) constantly queries the Namada blockchain, and together with the [SDK](./sdk.mdx), is able to map blocks, transactions, along with other valuable information into a relational database (postgres).
+Індексатор Namada (він же `namadexer`) постійно запитує блокчейн Namada і разом з [SDK](./sdk.mdx) може відображати блоки, транзакції та іншу цінну інформацію в реляційну базу даних (postgres).
 
-This is especially useful for performing analytics over the blockchain, including storing historical data in a way that could be easily queried.
+Це особливо корисно для виконання аналітики над блокчейном, в тому числі для зберігання історичних даних, які можна легко запитувати.
 
-## Setting up
+## Налаштування
 
-The namada indexer's source code can be found [here](https://github.com/zondax/namadexer) and is simple to set up.
+Вихідний код індексатора namada можна знайти [тут](https://github.com/zondax/namadexer), і він простий у налаштуванні.
 
-The `namadexer` works best together with [Docker](https://www.docker.com/products/docker-desktop)
+Найкраще `namadexer` працює разом з [Docker](https://www.docker.com/products/docker-desktop)
 
 ```bash
 git clone https://github.com/Zondax/namadexer.git
@@ -21,29 +21,29 @@ cd namadexer
 make compose
 ```
 
-## Running the server and db
-Once the DockerFile has run, it is straightforward to both set up the postgres database as well as the server that will query the database.
+## Запуск сервера і бази даних
+Після запуску DockerFile можна легко налаштувати базу даних postgres, а також сервер, який буде запитувати базу даних.
 
-Make sure that `postgres` [is installed](https://www.postgresql.org/download/) on the local machine.
+Переконайтеся, що `postgres` [встановлено](https://www.postgresql.org/download/) на локальній машині.
 
-**Run postgres in docker**
+**Запуск postgres у докері**
 ```bash
 make postgres 
 # or run (and change arguments, e.g port):
 # docker run --name postgres -e POSTGRES_PASSWORD=wow -e POSTGRES_DB=blockchain -p 5432:5432 -d postgres
 ```
-Once the postgres server is up and running, it is time to set up the server that will query the postgres db.
+Після того, як сервер postgres запущено і запущено, настав час налаштувати сервер, який буде запитувати базу даних postgres.
 
-Execute the following command in order to set up the server
+Щоб налаштувати сервер, виконайте наступну команду
 ```
 make run_server
 ```
 
-If successful, the server should be running as a daemon on the localhost at port `30303`.
+У разі успіху, сервер повинен бути запущений як демон на localhost на порту `30303`.
 
-## Run the indexer
+## Запуск індексатора
 
-First, ensure that the `Settings.toml` within `config/Settings.toml` is configured correctly.
+Спочатку переконайтеся, що файл `Settings.toml` у каталозі `config/Settings.toml` налаштовано правильно.
 
 <Expandable>
 ```toml
@@ -81,23 +81,22 @@ port = 9000
 </Expandable>
 
 <Callout type="info" emoji="👀">
-**Interpreting the toml**
+**Інтерпретація шаблону**
 
-It is important to change the following parameters:
+Важливо змінити наступні параметри:
 
-1. `indexer.tendermint_addr` - This should be the address and corresponding port of a synced Namada full node
+1. `indexer.tendermint_addr` - Це має бути адреса та відповідний порт синхронізованого повного вузла Namada
 
-2. `database.host` - This should be the tcp address (with port) where the postgres database is running.
+2. `database.host` - Це має бути tcp-адреса (з портом), на якій запущено базу даних postgres.
 </Callout>
 
-Once the setup is complete, it is possible to start the indexer
+Після завершення налаштування можна запускати індексатор
 
 ```bash
 make run_indexer
 ```
 
-## Querying the database
+## Запит до бази даних
 
-The pre-defined endpoints to query the database are described in the documentation [here](https://github.com/Zondax/namadexer/blob/main/docs/04-server.md).
-
+Попередньо визначені кінцеві точки для запитів до бази даних описано в документації [тут](https://github.com/Zondax/namadexer/blob/main/docs/04-server.md).
 

@@ -1,71 +1,69 @@
 import {Steps} from 'nextra-theme-docs'
 import { Callout } from 'nextra-theme-docs'
 
-# Environment setup
+# Налаштування середовища
 
 <Callout type="info">
-If you don't want to build Namada from source you can [install Namada from binaries](../../introduction/install/binaries.mdx).
-Note that building from source can be a difficult process and is not recommended for beginners.
+Якщо ви не хочете збирати Namada з коду, ви можете [встановити Namada з бінарних файлів](../../introduction/install/binaries.mdx).Зауважте, що збірка з коду може бути складним процесом і не рекомендується для початківців.
 </Callout>
 
-Export the following variables:
+Експортуйте наступні змінні:
 
 ```bash copy
 export NAMADA_TAG=v0.23.1
 ```
 
 
-## Installing Namada
+## Встановлення Namada
 <Steps>
-### Install all pre-requisites
+### Встановіть усі необхідні компоненти
     - [Rust](https://www.rust-lang.org/tools/install)
     - [CometBFT](../../introduction/installing-cometbft.mdx)
     - [Protobuf](../../introduction/install/source/pre-requisites.mdx)
 
-### Clone namada repository and checkout the correct versions
+### Клонуйте репозиторій namada та перевірте правильність версій
 
 ```shell copy
 git clone https://github.com/anoma/namada && cd namada && git checkout $NAMADA_TAG
 ```
-###  Build binaries
+### Збираємо двійкові файли
 ```bash copy
 make install
 ```
-- There may be some additional requirements you may have to install (linux):
+- Можливо, вам доведеться встановити деякі додаткові вимоги (linux):
 ```bash copy
 sudo apt-get update -y
 sudo apt-get install build-essential make pkg-config libssl-dev libclang-dev -y
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 </Steps>
-## Installing CometBFT
+## Встановлення CometBFT
 <Steps>
-### See the installing CometBFT section [here](../../introduction/installing-cometbft.mdx) for instructions on how to install CometBFT.
-### Copy both the namada and CometBFT binaries to somewhere on $PATH (or use the relative paths). This step may or may not be necessary.
-    
-- namada binaries can be found in `/target/release`
-- CometBFT is likely in `$HOME/Downloads/cometbft`
+### Див. розділ про встановлення CometBFT [тут](../../introduction/installing-cometbft.mdx) для отримання інструкцій щодо встановлення CometBFT.
+### Скопіюйте двійкові файли namada і CometBFT кудись у $PATH (або скористайтеся відносними шляхами). Цей крок може бути необхідним, а може і не бути.
+
+- двійкові файли namada можна знайти в `/target/release`.- CometBFT, ймовірно, знаходиться у `$HOME/Downloads/cometbft`.
 </Steps>
-## Check ports
+## Перевірте порти
 <Steps>
-### Open ports on your machine:
+### Відкрийте порти на вашому комп'ютері:
     - 26656
     - 26657
-### To check if ports are open you can setup a simple server and curl the port from another host
+### Щоб перевірити, чи відкриті порти, ви можете налаштувати простий сервер і закрутити порт з іншого хоста
         
-- Inside the namada folder, run 
+- У папці namada виконайте 
 ``` bash
 { printf 'HTTP/1.0 200 OK\r\nContent-Length: %d\r\n\r\n' "$(wc -c < namada)"; cat namada; } | nc -l $PORT
 ```
 
-- From another host run one of the two commands:
+- З іншого хоста запустіть одну з двох команд:
     - `nmap $IP -p$PORT`
-    - `curl $IP:$PORT >/dev/null`
+    - `curl $IP:$PORT >/dev/null`.
 
-### Verifying your installation
-- Make sure you are using the correct CometBFT version
-    - `cometbft version` should output `0.37.2`
-- Make sure you are using the correct Namada version
-    - `namada --version` should output `Namada v0.23.1`
+### Перевірка встановлення
+- Переконайтеся, що ви використовуєте правильну версію CometBFT
+    - `cometbft version` має вивести `0.37.2`.
+- Переконайтеся, що ви використовуєте правильну версію Namada
+    - `namada --version` має вивести `Namada v0.23.1`.
 
 </Steps>

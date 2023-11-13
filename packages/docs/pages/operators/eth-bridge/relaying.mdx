@@ -1,48 +1,48 @@
 import { Callout } from 'nextra-theme-docs'
 
-# Relaying Ethereum Transactions
+# Ретрансляція транзакцій Ethereum
 
-Relayer commands are found in the `namadar` binary, which at the moment can only be installed from source.
+Команди ретранслятора знаходяться у бінарному файлі `namadar`, який наразі можна встановити лише з вихідних текстів.
 
-## Relaying validator set updates
+## Передача оновлень наборів валідаторів
 
-In order for any transactions to be relayed to the Ethereum smart contract, the validator sets need to be up to date on the Ethereum side. This is updated by a relayer which can be set up in the following manner:
+Для того, щоб будь-які транзакції могли бути передані смарт-контракту Ethereum, на стороні Ethereum повинні бути оновлені набори валідаторів. Вони оновлюються за допомогою релеєра, який можна налаштувати наступним чином:
 
 ```bash copy
 namadar validator-set relay --daemon --confirmations 1 --retry-sleep 0 --success-sleep 0 --safe-mode
 ```
 
-The `--safe-mode` flag is optional, but recommended. It will stop the relayer from being shut down by `^C` and will instead wait for the current batch of transactions to be relayed before shutting down.
+Прапорець `--safe-mode` є необов'язковим, але рекомендованим. Він не дасть релеєру вимкнутись за допомогою `^C` і замість цього чекатиме на передачу поточного пакету транзакцій, перш ніж вимкнутись.
 
-More optional flags are available, which can be found by running `namadar validator-set relay --help`. Notably, `--eth-gas`and `--eth-gas-price` will allow you to set the maximum gas-limit and gas-price, respectively, that the relayer will use when relaying transactions to the Ethereum smart contract.
+Доступно більше необов'язкових прапорів, які можна знайти, виконавши `namadar validator-set relay --help`. Зокрема, `--eth-gas` і `--eth-gas-price` дозволять вам встановити максимальний ліміт газу і ціну газу відповідно, які релеєр буде використовувати при передачі транзакцій смарт-контракту Ethereum.
 
-## Relaying transactions
+## Передача транзакцій
 
-Transactions are relayed in batches. The relayer will wait until it has a batch of transactions to relay before sending them to the Ethereum smart contract. This is done to reduce the number of transactions that need to be sent to the Ethereum smart contract, and thus reduce the gas costs.
+Транзакції передаються пакетами. Перш ніж відправляти транзакції смарт-контракту Ethereum, релеєр буде чекати, поки не отримає партію транзакцій, які потрібно передати. Це робиться для того, щоб зменшити кількість транзакцій, які потрібно відправити смарт-контракту Ethereum, і таким чином знизити витрати на газ.
 
-The relayer can get a "recommended-batch" of signed transactions to relay by running:
+Релеєр може отримати "рекомендовану партію" підписаних транзакцій для ретрансляції шляхом запуску:
 
 ```bash
 namadar ethereum-bridge-pool recommend-batch
 ```
 
-If this is favourable for the relayer, it can construct the proof and relay it to the Ethereum smart contract by running:
+Якщо це сприятливо для релеєра, він може побудувати доказ і передати його смарт-контракту Ethereum шляхом запуску:
 
 ```bash
 namadar ethereum-bridge-pool relay-proof --hash-list $HASH_LIST
 ```
 
 <Callout type="info">
-As this involves an Ethereum transaction, the `--eth-gas` and `--eth-gas-price` flags are also available here.
+Оскільки це стосується транзакції Ethereum, тут також доступні прапорці `--eth-gas` і `--eth-gas-price`.
 </Callout>
 
-Alternatively, the relayer can run the command:
+Крім того, ретранслятор може запустити команду:
 
 ```bash
 namadar ethereum-bridge-pool construct-proof --hash-list $HASH_LIST
 ```
 
-To only construct the proof without relaying it. The proof could then be relayed manually by the relayer.
+Лише побудувати доказ, не передаючи його. Потім доказ може бути переданий вручну ретранслятором.
 
 
 

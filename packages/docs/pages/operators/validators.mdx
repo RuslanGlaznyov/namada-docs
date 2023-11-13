@@ -1,22 +1,22 @@
-# Validators on Namada
+# Валідатори на Namada
 
-Namada is a proof-of-stake blockchain, which means that the validators are the ones who are responsible for both voting on state-transitions and proposing new blocks.
+Namada - це блокчейн з доказом частки (proof-of-stake), що означає, що саме валідатори відповідають за голосування щодо переходу до нового стану і за пропозицію нових блоків.
 
-### What is a genesis validator? How does it differ from a post-genesis Validator?
+### Що таке генезисний валідатор? Чим він відрізняється від постгенезисного валідатора?
 
-A (pre-)genesis validator is a validator who is proposed to be a validator in the genesis block of the blockchain. If the genesis file is accepted by the network, then the (pre-)genesis validators are able to conduct validating activities on the blockchain, with the stake specified in the genesis file. These validators are setup with the correct consensus keys, which must match those specified in the genesis file.
+Валідатор (попереднього) генезису - це валідатор, який пропонується в якості валідатора в генезисному блоці блокчейну. Якщо генезисний файл приймається мережею, то валідатори (перед)генезису можуть здійснювати валідацію в блокчейні з часткою участі, зазначеною в генезисному файлі. Ці валідатори налаштовані з правильними ключами консенсусу, які повинні відповідати тим, що вказані в генезисному файлі.
 
-A post-genesis validator, on the other hand, is a validating account which was created sometime after the genesis block. These accounts are initiated by the `init-validator` command.
+З іншого боку, постгенезисний валідатор - це обліковий запис, який був створений після генезисного блоку. Ці облікові записи ініціюються командою `init-validator`.
 
-### How do I become a validator?
+### Як стати валідатором?
 
-#### Pre-requisites
-Validators require stake in the form of NAM in order to participate in the consensus process. The amount of stake required is specified in the genesis file. In order to become a validator, you must have at least the minimum amount of stake required.
+#### Передумови
+Для участі в процесі консенсусу валідаторам потрібна частка у вигляді NAM. Розмір необхідної частки вказаний у файлі генезису. Для того, щоб стати валідатором, ви повинні мати принаймні мінімальну необхідну частку.
 
-In addition, the validator node must meet the [minimum hardware requirements](./hardware.mdx).
+Крім того, вузол валідатора повинен відповідати [мінімальним апаратним вимогам](./hardware.mdx).
 
-#### Steps
+#### Кроки
 
-See these steps for [setting up a genesis validator](./validators/genesis-validator-setup.mdx).
+Дивіться ці кроки для [налаштування генетичного валідатора](./validators/genesis-validator-setup.mdx).
 
-See these steps for [setting up a post-genesis validator](./validators/post-genesis-validator-setup.mdx).
+Дивіться ці кроки для [налаштування постгенезисного валідатора](./validators/post-genesis-validator-setup.mdx).

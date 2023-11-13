@@ -1,5 +1,5 @@
 {
-  "file-system-wallet": "File system wallet",
-  "web-wallet": "Web wallet",
-  "hardware-wallet": "Hardware wallet"
+  "file-system-wallet": "Файлова система гаманця",
+  "web-wallet": "Веб-гаманець",
+  "hardware-wallet": "Апаратний гаманець"
 }

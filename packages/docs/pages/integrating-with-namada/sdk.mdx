@@ -1,16 +1,16 @@
 import Expandable from '../../components/Expandable';
 
-# The Namada SDK
+# Namada SDK
 
-The Namada software development kit (SDK) can be found in the `namada` repo under the path [`namada/shared`](https://github.com/anoma/namada/tree/main/shared). The SDK is written in Rust and can be used to interact with the Namada blockchain, by constructing transactions, signing them, and submitting them to the network.
+Комплект для розробки програмного забезпечення (SDK) Namada можна знайти в репозиторії `namada` за посиланням [`namada/shared`] (https://github.com/anoma/namada/tree/main/shared). SDK написаний на Rust і може бути використаний для взаємодії з блокчейном Namada шляхом створення транзакцій, їх підписання та відправки в мережу.
 
-## Quick Start
+##  Швидкий старт
 
-A good starting point to see the SDK in use is to check-out the [namada interface](https://github.com/anoma/namada-interface/tree/main/packages/shared/lib/src/sdk) repo. This repo contains a simple web application that uses the SDK to interact with the Namada blockchain. However, it is important to note the added complexity arising from the application integrating javascript using [wasm-bindgen](https://rustwasm.github.io/docs/wasm-bindgen/), which is not necesary.
+Гарною відправною точкою для ознайомлення з використанням SDK є репозиторій [namada interface](https://github.com/anoma/namada-interface/tree/main/packages/shared/lib/src/sdk). Цей репозиторій містить простий веб-додаток, який використовує SDK для взаємодії з блокчейном Namada. Однак, важливо відзначити додаткову складність, що виникає через інтеграцію додатку з javascript за допомогою [wasm-bindgen](https://rustwasm.github.io/docs/wasm-bindgen/), що не є обов'язковим.
 
-## Installation
+## Встановлення
 
-The Namada SDK can be installed by creating a new Rust project and adding the following to the `Cargo.toml` file:
+Namada SDK можна встановити, створивши новий проект Rust і додавши до файлу `Cargo.toml` наступне:
 
 
 <Expandable>
@@ -54,10 +54,10 @@ borsh-schema-derive-internal = {git = "https://github.com/heliaxdev/borsh-rs.git
 </Expandable>
 
 
-Once the sdk is installed, you can use it to interact with the Namada blockchain.
+Після встановлення sdk ви можете використовувати його для взаємодії з блокчейном Namada.
 
-## Table of contents
+## Зміст
 
-- [Setting up a client](./sdk/setting-up-a-client.mdx)
-- [Setting up a wallet](./sdk/setting-up-a-wallet.mdx)
-- [Constructing transfers](./sdk/constructing-transfers.mdx)
+- [Налаштування клієнта](./sdk/setting-up-a-client.mdx)
+- [Налаштування гаманця](./sdk/setting-up-a-wallet.mdx)
+- [Створення переказів](./sdk/constructing-transfers.mdx)

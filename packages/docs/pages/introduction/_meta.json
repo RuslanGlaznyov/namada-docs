@@ -1,7 +1,7 @@
 {
-  "quick-start": "Quick start",
-  "install": "Installing Namada",
-  "installing-cometbft": "Installing CometBFT",
-  "privacy": "Privacy and Opsec",
-  "security": "Security"
+  "quick-start": "Швидкий старт",
+  "install": "Встановлення Namada",
+  "installing-cometbft": "Встановлення CometBFT",
+  "privacy": "Конфіденційність",
+  "security": "Безпека"
 }
