@@ -38,6 +38,7 @@ const config: DocsThemeConfig = {
   i18n: [
     { locale: 'en-US', text: 'English' },
     { locale: 'uk-UA', text: 'Українська' },
+    { locale: 'zh-CN', text: '中文' }
   ]
 };
 
