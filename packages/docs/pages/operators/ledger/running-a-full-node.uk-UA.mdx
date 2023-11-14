@@ -1,0 +1,83 @@
+import { Callout } from 'nextra-theme-docs'
+
+# Повне налаштування вузла
+Перед запуском повного вузла знадобиться унікальний ідентифікатор `chain-id`, який буде випущено, як тільки файл генезису буде готовий. 
+
+### Приєднатися до мережі
+Після того, як `chain-id` буде розподілено, можна приєднатися до мережі за допомогою `CHAIN_ID`:
+```bash copy
+  export CHAIN_ID="namada-mainnet" ## (replace with the actual chain-id)
+  namada client utils join-network --chain-id $CHAIN_ID
+  ```
+
+### Запустіть вузол і синхронізуйте
+```bash copy
+  CMT_LOG_LEVEL=p2p:none,pex:error namada node ledger run
+```
+Опціонально: Якщо ви хочете отримати більше логів, ви можете замість цього запустити
+```bash copy
+NAMADA_LOG=info CMT_LOG_LEVEL=p2p:none,pex:error NAMADA_CMT_STDOUT=true namada node ledger run
+```
+А якщо ви хочете зберегти свої логи у файл, ви можете замість цього запустити:
+```bash copy
+TIMESTAMP=$(date +%s)
+NAMADA_LOG=info CMT_LOG_LEVEL=p2p:none,pex:error NAMADA_CMT_STDOUT=true namada node ledger run &> logs-${TIMESTAMP}.txt
+tail -f -n 20 logs-${TIMESTAMP}.txt ## (in another shell)
+```
+
+### Запуск namada як сервісу systemd
+<Callout type="info">
+Наведений нижче скрипт є внеском спільноти Encipher88 і наразі працює лише на машинах Ubuntu. Він став у нагоді багатьом валідаторам.
+</Callout>
+Нижче наведено припущення, що ви встановили namada з вихідного коду за допомогою команди `make install`. Принаймні припускається, що відповідні двійкові файли знаходяться у `/usr/local/bin/`.
+
+```bash copy
+which namada ## (should return /usr/local/bin/namada)
+```
+
+Нижче наведено створення службового файлу для systemd, який запускатиме namada як службу. Це корисно для запуску вузла у фоновому режимі, а також для автоматичного перезапуску вузла у разі його аварійного завершення.
+```bash copy
+sudo tee /etc/systemd/system/namadad.service > /dev/null <<EOF
+[Unit]
+Description=namada
+After=network-online.target
+[Service]
+User=$USER
+WorkingDirectory=$HOME/.local/share/namada
+Environment=CMT_LOG_LEVEL=p2p:none,pex:error
+Environment=NAMADA_CMT_STDOUT=true
+ExecStart=/usr/local/bin/namada node ledger run 
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+RestartSec=10
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+Увімкніть службу за допомогою наведених нижче команд:
+```bash copy
+sudo systemctl daemon-reload
+sudo systemctl enable namadad
+```
+Тепер ви можете керувати вузлом за допомогою команд systemd:
+
+- Запустити вузол
+```bash copy
+sudo systemctl start namadad
+```
+- Зупинити вузол
+```bash copy
+sudo systemctl stop namadad
+```
+- Перезапустити вузол
+```bash copy
+sudo systemctl restart namadad
+```
+- Показати логи вузлів
+```bash copy
+sudo journalctl -u namadad -f -o cat
+```
+
+

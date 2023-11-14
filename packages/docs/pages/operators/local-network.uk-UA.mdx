@@ -1,0 +1,342 @@
+import Expandable from "../../components/Expandable";
+
+# Запуск локальної мережі
+
+## Передумови
+
+Для роботи в локальній мережі Namada має бути встановлена [з джерела](../introduction/install/source.mdx).
+
+Існує скрипт, написаний спеціально для цієї мети, який можна знайти в розділі `скрипти` в [репозиторії Namada] (https://github.com/anoma/namada).
+
+### Встановлення залежностей скриптів
+
+The script has some dependencies that must be installed in order to run it successfully:
+
+1. python3 must be installed.
+2. toml Python pip library https://pypi.org/project/toml/ must be installed.
+
+The script will require a genesis configuration file, which is a TOML file that specifies the parameters of the network. Examples of such files can be found in the [anoma-network-config repo](https://github.com/heliaxdev/anoma-network-config) in the `templates` directory.
+
+### Зміна конфігураційного файлу генезису
+
+Для успішного запуску скрипта необхідно видалити з файлу `toml` всі розділи `validators`. Це пов'язано з тим, що скрипт згенерує новий набір валідаторів для мережі.
+
+У наведеному нижче блоці коду показано приклад конфігураційного файлу генерації, який було змінено для видалення розділу `validators`.
+
+<Expandable>
+```diff
+# Редагування кроків конфігурації генезису
+# Мережа розробників
+genesis_time = "2021-12-20T15:00:00.00Z"
+native_token = "NAM"
+
+- # 3 валідатори генезису.
+- [validator.validator-1]
+- # Баланс токенів валідатора на етапі генезису.
+- tokens = 100000
+- # Сума залишку токенів генерації валідатора, яка не стейкується.
+- non_staked_balance = 100000
+- # VP(Сила голосу) для облікового запису валідатора
+- validator_vp = "vp_validator"
+- # Ставка комісії за винагороду
+- commission_rate = 0.05
+- # Максимальна зміна ставки комісійних за епоху
+- max_commission_rate_change = 0.01
+- # Публічна IP:адреса порту
+- net_address = "52.210.23.30:26656"
+-
+- [validator.validator-2]
+- # Баланс токенів валідатора на етапі генезису.
+- tokens = 100000
+- # Сума залишку токенів генерації валідатора, яка не стейкується.
+- non_staked_balance = 100000
+- # VP(Сила голосу) для облікового запису валідатора
+- validator_vp = "vp_validator"
+- # Ставка комісії за винагороду
+- commission_rate = 0.05
+- # Максимальна зміна ставки комісійних за епоху
+- max_commission_rate_change = 0.01
+- # VP для рахунку винагороди за стейкінг
+- staking_reward_vp = "vp_user"
+- # Публічна IP:адреса порту
+- net_address = "63.32.203.239:26656"
+-
+- [validator.validator-3]
+- # Баланс токенів валідатора на етапі генезису.
+- tokens = 100000
+- # Сума залишку токенів генерації валідатора, яка не стейкується.
+- non_staked_balance = 100000
+- # VP(Сила голосу) для облікового запису валідатора
+- validator_vp = "vp_validator"
+- # Ставка комісії за винагороду
+- commission_rate = 0.05
+- # Максимальна зміна ставки комісійних за епоху
+- max_commission_rate_change = 0.01
+- # VP для рахунку винагороди за стейкінг
+- staking_reward_vp = "vp_user"
+- # Публічна IP:адреса порту
+- net_address = "54.195.72.213:26656"
+
+# Деякі токени присутні в генезисі.
+
+[token.NAM]
+address = "atest1v4ehgw36x3prswzxggunzv6pxqmnvdj9xvcyzvpsggeyvs3cg9qnywf589qnwvfsg5erg3fkl09rg5"
+vp = "vp_token"
+[token.NAM.balances]
+atest1v4ehgw36gc6yxvpjxccyzvphxycrxw2xxsuyydesxgcnjs3cg9znwv3cxgmnj32yxy6rssf5tcqjm3 = 9223372036854
+
+[token.BTC]
+address = "atest1v4ehgw36xdzryve5gsc52veeg5cnsv2yx5eygvp38qcrvd29xy6rys6p8yc5xvp4xfpy2v694wgwcp"
+vp = "vp_token"
+[token.BTC.balances]
+atest1v4ehgw36gc6yxvpjxccyzvphxycrxw2xxsuyydesxgcnjs3cg9znwv3cxgmnj32yxy6rssf5tcqjm3 = 9223372036854
+
+[token.ETH]
+address = "atest1v4ehgw36xqmr2d3nx3ryvd2xxgmrq33j8qcns33sxezrgv6zxdzrydjrxveygd2yxumrsdpsf9jc2p"
+vp = "vp_token"
+[token.ETH.balances]
+atest1v4ehgw36gc6yxvpjxccyzvphxycrxw2xxsuyydesxgcnjs3cg9znwv3cxgmnj32yxy6rssf5tcqjm3 = 9223372036854
+
+[token.DOT]
+address = "atest1v4ehgw36gg6nvs2zgfpyxsfjgc65yv6pxy6nwwfsxgungdzrggeyzv35gveyxsjyxymyz335hur2jn"
+vp = "vp_token"
+[token.DOT.balances]
+atest1v4ehgw36gc6yxvpjxccyzvphxycrxw2xxsuyydesxgcnjs3cg9znwv3cxgmnj32yxy6rssf5tcqjm3 = 9223372036854
+
+[token.Schnitzel]
+address = "atest1v4ehgw36xue5xvf5xvuyzvpjx5un2v3k8qeyvd3cxdqns32p89rrxd6xx9zngvpegccnzs699rdnnt"
+vp = "vp_token"
+[token.Schnitzel.balances]
+atest1v4ehgw36gc6yxvpjxccyzvphxycrxw2xxsuyydesxgcnjs3cg9znwv3cxgmnj32yxy6rssf5tcqjm3 = 9223372036854
+
+[token.Apfel]
+address = "atest1v4ehgw36gfryydj9g3p5zv3kg9znyd358ycnzsfcggc5gvecgc6ygs2rxv6ry3zpg4zrwdfeumqcz9"
+vp = "vp_token"
+[token.Apfel.balances]
+atest1v4ehgw36gc6yxvpjxccyzvphxycrxw2xxsuyydesxgcnjs3cg9znwv3cxgmnj32yxy6rssf5tcqjm3 = 9223372036854
+
+[token.Kartoffel]
+address = "atest1v4ehgw36gep5ysecxq6nyv3jg3zygv3e89qn2vp48pryxsf4xpznvve5gvmy23fs89pryvf5a6ht90"
+public_key = ""
+vp = "vp_token"
+[token.Kartoffel.balances]
+atest1v4ehgw36gc6yxvpjxccyzvphxycrxw2xxsuyydesxgcnjs3cg9znwv3cxgmnj32yxy6rssf5tcqjm3 = 9223372036854
+
+# Деякі відомі свідчення присутні в генезисі.
+
+[implicit.faucet]
+address = "atest1v4ehgw36gc6yxvpjxccyzvphxycrxw2xxsuyydesxgcnjs3cg9znwv3cxgmnj32yxy6rssf5tcqjm3"
+vp = "vp_user"
+
+[established.masp]
+address = "atest1v4ehgw36xaryysfsx5unvve4g5my2vjz89p52sjxxgenzd348yuyyv3hg3pnjs35g5unvde4ca36y5"
+vp = "vp_masp"
+
+# Визначення Wasm VP
+
+# Неявний VP
+
+[wasm.vp_implicit]
+filename = "vp_implicit.wasm"
+
+# Користувач VP за замовчуванням в установлених облікових записах
+
+[wasm.vp_user]
+
+# ім'я файлу (відносно шляху wasm, що використовується вузлом)
+
+
+filename = "vp_user.wasm"
+
+# Валідатор VP(Сила голосу)
+
+[wasm.vp_validator]
+filename = "vp_validator.wasm"
+
+# Текен VP(Сила голосу)
+
+[wasm.vp_token]
+filename = "vp_token.wasm"
+
+# MASP VP(Сила голосу)
+
+[wasm.vp_masp]
+filename = "vp_masp.wasm"
+
+# General protocol parameters.
+
+[parameters]
+
+# Мінімальна кількість блоків в епосі.
+
+min_num_of_blocks = 5
+
+# Максимальний очікуваний час на блок (у секундах).
+
+max_expected_time_per_block = 11
+
+# Неявна назва VP WASM
+
+implicit_vp = "vp_implicit"
+
+# Очікувана кількість епох на рік (також задає мінімальну тривалість епохи в секундах)
+
+epochs_per_year = 262800 # ~120 sec epoch duration (60*60*24\*365 / 120)
+
+# Коефіцієнт посилення P в контролері винагород Proof of Stake
+
+pos_gain_p = 0.1
+
+# Коефіцієнт посилення D у контролері винагород Proof of Stake
+
+pos_gain_d = 0.1
+
+# Фіксована плата за обгортку tx
+
+wrapper_tx_fees = "5"
+
+# Максимальний розмір блоків у байтах
+
+max_proposal_bytes = 5242880
+vp_whitelist = []
+tx_whitelist = []
+max_public_key_per_account = 15
+#Максимальна кількість підписів, необхідних для однієї транзакції
+max_signature_per_tx = 15
+
+# Proof of stake(Доказ частки) Параметри.
+
+[pos_params]
+
+# Максимальна кількість активних валідаторів.
+
+max_validator_slots = 128
+
+# Довжина конвеєра (в епохах). Будь-яка зміна у наборі валідаторів, зроблена у
+
+# epoch 'n', стане активною в epoch 'n + pipeline_len'.
+
+pipeline_len = 2
+
+# Тривалість розблокування (в епохах). Валідаторам може бути урізано частку
+
+# за помилку в епосі 'n' до епохи 'n' + unbonding_len.
+
+unbonding_len = 4
+
+# Кількість голосів за один базовий токен (namnam)
+
+tm_votes_per_token = 1.0
+
+# Винагорода за пропозицію блоку.
+
+block_proposer_reward = 0.125
+
+# Винагорода за голосування на дільниці.
+
+block_vote_reward = 0.1
+
+# Максимальний рівень інфляції на рік (10%)
+
+max_inflation_rate = 0.1
+
+# Цільове співвідношення стейкнутих токенів до загальної кількості токенів у пропозиції
+
+target_staked_ratio = 0.6667
+
+# Portion of a validator's stake that should be slashed on a duplicate
+
+# голосування.
+
+duplicate_vote_min_slash_rate = 0.001
+
+# Частина колоди валідатора, яку потрібно перерізати на світлі
+
+# client attack.
+
+light_client_attack_min_slash_rate = 0.001
+cubic_slashing_window_length = 1
+
+# Параметри управління.
+
+[gov_params]
+
+# мінімальна кількість токенів xan для блокування
+
+min_proposal_fund = 100
+
+# розмір коду пропозиції в кібібайтах (KiB)
+
+max_proposal_code_size = 300000
+
+# min довжина періоду пропозиції в епохах
+
+min_proposal_period = 3
+
+# максимальна тривалість періоду пропозиції в епохах
+
+max_proposal_period = 6
+
+# максимальна кількість символів у змісті пропозиції
+
+max_proposal_content_size = 10000
+
+# мінімальні епохи між кінцем та `grace` епохою
+
+min_proposal_grace_epochs = 0
+
+````
+</Expandable>
+
+### Збірка wasm
+
+Скрипт також вимагатиме збірки всіх файлів `wasm` для транзакцій. Це можна зробити, виконавши наступну команду (перебуваючи у каталозі namada):
+
+```shell
+make build-wasm-scripts
+````
+
+## Запуск скрипта
+
+Скрипт називається `build_network.sh` і може бути запущений за допомогою наступної команди:
+
+```shell
+# Ensure you are in the root of the namada repository directory
+./scripts/build_network.sh <config_toml> <namada_dir> <OPTIONAL: base_dir>
+```
+
+Детальніше, скрипт приймає три аргументи:
+
+1. `config_toml`: шлях до файлу конфігурації генезису ([без валідатора](#модифікація-файлу-конфігурації-генезису)).
+2. `namada_dir`: шлях до каталогу двійкових файлів Namada (../introduction/install/binaries/overview-of-binaries.mdx).
+   Якщо двійкові файли було зібрано за допомогою `make build-release`, це означатиме каталог `namada/target/release`.
+   Інакше, якщо їх було зібрано за допомогою `make build`, це буде каталог `namada/target/debug`.
+3. `base_dir`: (необов'язковий аргумент) шлях до каталогу BASE_DIR, де зберігаються всі дані ланцюжка.
+   Це необхідно лише у випадку, якщо BASE_DIR не є директорією за замовчуванням, заданою командою `namadac utils default-base-dir`.
+
+Наприклад, користувач MacOS може виконати щось на кшталт:
+
+```shell
+./scripts/build_network.sh \
+~/anoma-network-config/templates/edited_genesis_config.toml \
+./target/release # Assuming the binaries were built using `make build-release`
+```
+
+## Запуск бухгалтерської Ledger
+
+Після запуску скрипту у фоновому режимі буде запущено процес на python.
+Ledger можна запустити за допомогою знайомої команди:
+
+```shell
+target/release/namada ledger # Assuming the binaries were built using `make build-release`
+```
+
+## Очищення
+
+Після того, як локальна мережа виконала своє призначення, її можна очистити, виконавши наступні команди у функції очищення скрипта:
+
+```shell copy
+    pkill -f ".hack/chains"
+    rm -r .hack/chains
+    rm local.*.tar.gz
+```

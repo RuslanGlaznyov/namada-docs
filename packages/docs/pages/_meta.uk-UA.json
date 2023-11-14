@@ -1,9 +1,8 @@
-
 {
   "index": "Namada",
-  "introduction": "Введення",
+  "introduction": "Початок роботи",
   "users": "Керівництво користувача",
-  "operators": "Оператори",
+  "operators": "Керівництво для операторів",
   "integrating-with-namada" : "Інтеграція з Namada",
-  "networks": "Мережа"
+  "networks": "Мережі"
 }

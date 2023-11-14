@@ -1,0 +1,52 @@
+# Передумови
+Якщо ви хочете встановити Namada з вихідного коду, вам потрібно спочатку встановити деякі залежності: 
+
+1. [Rust](https://www.rust-lang.org/tools/install) 
+2. [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+3. [Clang](https://clang.llvm.org/get_started.html)
+4. [OpenSSL](https://www.openssl.org/source/)
+5. [LLVM](https://releases.llvm.org/download.html)
+
+## Rust
+Наприкінці встановлення переконайтеся, що каталог bin Cargo `$HOME/.cargo/bin` доступний у вашій змінній оточення PATH. Ви можете перезапустити оболонку або запустити `ource $HOME/.cargo/env` для продовження.
+
+Якщо у вас вже встановлено Rust, переконайтеся, що ви використовуєте останню версію, запустивши її:
+
+```shell copy
+rustup update
+```
+
+## Решта залежностей
+Потім встановіть решту залежностей.
+
+{/* TODO: Turn these into code boxes with toggles for OS */}
+
+**Ubuntu:** запуск наступної команди має встановити все необхідне:
+
+```shell copy
+sudo apt-get install -y make git-core libssl-dev pkg-config libclang-12-dev build-essential protobuf-compiler
+```
+
+**Mac:** встановлення інструментів командного рядка Xcode повинно забезпечити вас майже всім необхідним:
+
+```shell copy
+xcode-select --install
+```
+
+Також потрібен `protoc`. На Mac ви можете встановити його за допомогою `Homebrew`:
+
+```shell copy
+brew install protobuf
+```
+
+Під час запуску
+```shell copy
+protoc --version
+```
+Повинена бути версія як мінімум:
+
+```shell copy
+libprotoc 3.12.0
+```
+
+Будь ласка, зверніться до [документація по встановленню protoc](https://grpc.io/docs/protoc-installation/) для інших варіантів встановлення.
