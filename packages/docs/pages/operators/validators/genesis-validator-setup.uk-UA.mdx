@@ -4,28 +4,63 @@ import { Callout } from 'nextra-theme-docs'
 
 Генезисний валідатор - це валідатор, який є валідатором з першого блоку ланцюжка, тобто на етапі генезису. Інформація про валідаторів генезису жорстко закодована у файлі генезису, який розповсюджується серед усіх користувачів, які хочуть взаємодіяти з ланцюжком.
 
-### Пкередумови
+### Передумови
 
 - машина, яка відповідає [вимогам](../hardware.mdx) для запуску вузла валідатора
 - асоційовану публічну IPv4-адресу з портами 26656, доступну з будь-якого місця для P2P-з'єднань
 
 ## Прегенезис
 
-Щоб налаштувати всі [необхідні ключі] (#required-keys) для валідатора генезису для майбутньої мережі, ви можете виконати наступну команду з псевдонімом на ваш вибір. Зверніть увагу, що цей псевдонім є публічним (адреса вашого облікового запису валідатора буде видно в кожному гаманці) і повинен бути унікальним в межах мережі.
+Щоб налаштувати всі [необхідні ключі](#required-keys) для валідатора генезису для майбутньої мережі, ви можете виконати наступну команду з псевдонімом на ваш вибір. Зверніть увагу, що цей псевдонім є публічним (адреса вашого облікового запису валідатора буде видно в кожному гаманці) і повинен бути унікальним в межах мережі.
 
-Ви також повинні вказати статичний `{IP:порт}` в аргументі `--net-address` майбутньої P2P-адреси вашого майбутнього вузла.
+Ви також повинні вказати статичний `{IP:port}` в аргументі `--net-address` майбутньої P2P-адреси вашого майбутнього вузла.
 
 ### 1. Створіть ключі валідатора:
+
+####  До `v0.25.0`
+
 ``` bash
-export ALIAS="CHOOSE_A_NAME_FOR_YOUR_VALIDATOR"
+export VALIDATOR_ALIAS="CHOOSE_A_NAME_FOR_YOUR_VALIDATOR"
 export PUBLIC_IP="LAPTOP_OR_SERVER_IP"
-namada client utils init-genesis-validator --alias $ALIAS \
---max-commission-rate-change 0.01 --commission-rate 0.05 \
---net-address $PUBLIC_IP:26656
+namada client utils init-genesis-validator \
+    --alias $VALIDATOR_ALIAS \
+    --max-commission-rate-change 0.01 \
+    --commission-rate 0.05 \
+    --net-address $PUBLIC_IP:26656
+```
+
+#### Після `v0.25.0`
+
+##### 1.1 Згенеруйте свої ключі
+
+``` bash
+export KEY_ALIAS="CHOOSE_A_NAME_FOR_YOUR_VALIDATOR-KEY"
+namadaw key gen --pre-genesis --alias $ALIAS
+```
+##### 1.2 Згенеруйте свій валідатор
+
+<Callout type="info">
+Перед тим, як зібрати валідатори tomls попередньої генерації, необхідно зібрати відкриті ключі та призначити баланси для кожного ключа. Це робить організатор мережі.
+</Callout>
+
+``` bash
+export VALIDATOR_ALIAS="CHOOSE_A_NAME_FOR_YOUR_VALIDATOR"
+export PUBLIC_IP="LAPTOP_OR_SERVER_IP/DNS"
+export BALANCE_ON_KEY="The amount of tokens allocated at genesis to the key" # For testnets, usually 1000000000
+export EMAIL="The email address for validator communications" # Required field, but can be a dummy email (although not recommended)
+namada client utils init-genesis-validator \       
+    --source $KEY_ALIAS \
+    --alias $VALIDATOR_ALIAS \
+    --net-address "${PUBLIC_IP}:26656" \
+    --commission-rate 0.05 \
+    --max-commission-rate-change 0.01 \
+    --transfer-from-source-amount $BALANCE_ON_KEY \
+    --self-bond-amount 1000000 \
+    --email $EMAIL
 ```
 
 ### 2. Після генерації ключів команда виведе щось на зразок цього:
-
+До `v0.25.0`
 <Callout type="info">
 Якщо ви встановили змінну $XDG_DATA_HOME, саме туди буде записано попередній TOML. В іншому випадку дивіться нижче розташування за замовчуванням.
 </Callout>
@@ -41,7 +76,7 @@ Pre-genesis TOML written to /Users/$USER/Library/Application\ Support/Namada
 ```
 
 ### 3. Збережіть цей каталог як змінну середовища для подальшого використання:
-
+До `v0.25.0`
 #### Linux 
 ```shell copy
 export BASE_DIR="$HOME/.local/share/namada"
@@ -55,7 +90,7 @@ export BASE_DIR="/Users/$USER/Library/Application\ Support/Namada"
 
 Зверніть увагу, що гаманець, який містить ваші приватні ключі, також буде записано до цього каталогу.
 
-### 4. Ви можете надрукувати файл validator.tml на виконання:
+### 4. Ви можете надрукувати файл validator.toml на виконання:
 
 ### Linux 
 ```shell copy
