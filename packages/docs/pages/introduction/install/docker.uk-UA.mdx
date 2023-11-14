@@ -23,10 +23,10 @@ export CHAIN_ID=<chain-id>
 Наступна команда запуску докера запустить вузол журналу:
 
 ```bash copy
-docker run -P -i -t $DOCKER_IMAGE <команда namada>
+docker run -P -i -t $DOCKER_IMAGE <namada command>
 ```
 
-Де `<команда namada>` - це будь-яка команда, яку ви запустите після `namada` у терміналі. Наприклад, якщо ви хочете виконати `namada client utils join-network --chain-id $CHAIN_ID`, вам слід виконати `namada client utils join-network`:
+Де `<namada command>` - це будь-яка команда, яку ви запустите після `namada` у терміналі. Наприклад, якщо ви хочете виконати `namada client utils join-network --chain-id $CHAIN_ID`, вам слід виконати `namada client utils join-network`:
 
 ```bash copy
 docker run -P -i -t $DOCKER_IMAGE client utils join-network --chain-id $CHAIN_ID

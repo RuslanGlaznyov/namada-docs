@@ -3,5 +3,6 @@
   "genesis-validator-setup": "Налаштування генезис-валідатора",
   "run-your-genesis-validator": "Запуск генезис-валідатора",
   "post-genesis-validator-setup": "Інструкції по запуску валідатора після генезису",
-  "staking": "Стейкінг"
+  "staking": "Стейкінг",
+  "proof-of-stake": "Система доказом частки"
 }

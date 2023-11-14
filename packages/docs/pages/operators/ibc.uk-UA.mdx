@@ -1,14 +1,14 @@
 import { Callout } from 'nextra-theme-docs'
 import Expandable from '../../components/Expandable'
 
-# Ретрансляція в Namadi
+# Ретрансляція в Namada
 
 У цьому документі описано, як працювати з ретранслятором для протоколу міжблочного зв'язку (IBC) з Namada. Ця документація охоплює можливість створення з'єднань через IBC, а також налаштування локальних екземплярів Namada для тестування.
 
 Цей документ описує основні кроки для використання IBC з Namada:
 
-1. [Налаштування Hermes] (#setup-hermes)
-2. [Встановити Hermes] (#install-hermes)
+1. [Налаштування Hermes](#setup-hermes)
+2. [Встановити Hermes](#install-hermes)
 3. [Налаштування ретранслятора](#setting-up-the-relayer)
 4. [Запустити ретранслятор](#start-the-relayer)
 5. [Налаштування локальних екземплярів Namada](#set-up-local-namada-instances-using-the-hermes-script)
@@ -178,14 +178,14 @@ mkdir -p ~/.hermes/namada_wallet/$CHAIN_B_ID
 ```
 
 <Callout type="info">
-Цей крок потрібен лише для ланцюжків намада. Для ланцюжків на основі cosmos рекомендується додати ключ безпосередньо до hermes.
+Цей крок потрібен лише для ланцюжків Namada. Для ланцюжків на основі cosmos рекомендується додати ключ безпосередньо до hermes.
 ```bash copy
 ./hermes --config $HERMES_CONFIG keys add --chain "<name-of-chain>" --key-file "<path-to-key>" --overwrite
 ```
 </Callout>
 
 ### Створіть обліковий запис релеєра
-У кожному ланцюжку має бути обліковий запис `relayer`. У ланцюжку намада це можна зробити, виконавши
+У кожному ланцюжку має бути обліковий запис `relayer`. У ланцюжку Namada це можна зробити, виконавши
 ```bash copy
 namadaw key gen --alias relayer
 ```
@@ -277,15 +277,15 @@ SUCCESS Channel {
 ```
 </Expandable>
 
-## Запуск ретранслятор.
+## Запуск ретранслятора
 Як тільки ви запускаєте Hermes, він відстежує екземпляри через вузли і ретранслює пакети відповідно до відстежуваних подій.
 ```bash copy
 hermes --config $HERMES_CONFIG start
 ```
 
-Ви можете ознайомитися з більш детальною інформацією про Hermes в [офіційному документі] (https://hermes.informal.systems/).
+Ви можете ознайомитися з більш детальною інформацією про Hermes в [офіційному документі](https://hermes.informal.systems/).
 
-Після синхронізації ви можете створити канал і запустити Hermes, як описано [вище] (#create-ibc-channel).
+Після синхронізації ви можете створити канал і запустити Hermes, як описано [вище](#create-ibc-channel).
 ```bash copy
 # create a channel
 hermes --config $HERMES_CONFIG \
