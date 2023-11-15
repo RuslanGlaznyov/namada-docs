@@ -1,0 +1,69 @@
+import {Steps} from 'nextra-theme-docs'
+import { Callout } from 'nextra-theme-docs'
+
+# Налаштування середовища
+
+<Callout type="info">
+Якщо ви не хочете збирати Namada з коду, ви можете [встановити Namada з бінарних файлів](../../introduction/install/binaries.mdx).Зауважте, що збірка з коду може бути складним процесом і не рекомендується для початківців.
+</Callout>
+
+Експортуйте наступні змінні:
+
+```bash copy
+export NAMADA_TAG=v0.23.1
+```
+
+
+## Встановлення Namada
+<Steps>
+### Встановіть усі необхідні компоненти
+    - [Rust](https://www.rust-lang.org/tools/install)
+    - [CometBFT](../../introduction/installing-cometbft.mdx)
+    - [Protobuf](../../introduction/install/source/pre-requisites.mdx)
+
+### Клонуйте репозиторій namada та перевірте правильність версій
+
+```shell copy
+git clone https://github.com/anoma/namada && cd namada && git checkout $NAMADA_TAG
+```
+### Збираємо двійкові файли
+```bash copy
+make install
+```
+- Можливо, вам доведеться встановити деякі додаткові вимоги (linux):
+```bash copy
+sudo apt-get update -y
+sudo apt-get install build-essential make pkg-config libssl-dev libclang-dev -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+</Steps>
+## Встановлення CometBFT
+<Steps>
+### Див. розділ про встановлення CometBFT [тут](../../introduction/installing-cometbft.mdx) для отримання інструкцій щодо встановлення CometBFT.
+### Скопіюйте двійкові файли namada і CometBFT кудись у $PATH (або скористайтеся відносними шляхами). Цей крок може бути необхідним, а може і не бути.
+
+- двійкові файли namada можна знайти в `/target/release`.- CometBFT, ймовірно, знаходиться у `$HOME/Downloads/cometbft`.
+</Steps>
+## Перевірте порти
+<Steps>
+### Відкрийте порти на вашому комп'ютері:
+    - 26656
+    - 26657
+### Щоб перевірити, чи відкриті порти, ви можете налаштувати простий сервер і закрутити порт з іншого хоста
+        
+- У папці namada виконайте 
+``` bash
+{ printf 'HTTP/1.0 200 OK\r\nContent-Length: %d\r\n\r\n' "$(wc -c < namada)"; cat namada; } | nc -l $PORT
+```
+
+- З іншого хоста запустіть одну з двох команд:
+    - `nmap $IP -p$PORT`
+    - `curl $IP:$PORT >/dev/null`.
+
+### Перевірка встановлення
+- Переконайтеся, що ви використовуєте правильну версію CometBFT
+    - `cometbft version` має вивести `0.37.2`.
+- Переконайтеся, що ви використовуєте правильну версію Namada
+    - `namada --version` має вивести `Namada v0.23.1`.
+
+</Steps>

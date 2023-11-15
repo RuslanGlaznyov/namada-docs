@@ -1,0 +1,62 @@
+# 快速入门 (Quickstart)
+
+## 关于本指南 (About this guide)
+
+本指南适用于那些希望尽快启动并运行 Namada 的人员。它将指导您安装 Namada、加入测试网、运行节点并获取一些代币。
+
+## 安装 Namada (Installing Namada)
+
+请参阅[安装指南](./install.zh-CN.mdx)以获取有关安装 Namada 二进制文件的详细信息。本指南中的命令将假设您已将 Namada 二进制文件 (namada, namadan, namadaw, namadac) 放在您的$PATH中
+
+如果二进制文件存储在某处，但不在您的路径中（可能您已下载了二进制文件），您可以使用以下命令将二进制文件添加到您的 $PATH 中：
+
+```shell copy
+export PATH=$PATH:<path-to-namada-binaries>
+```
+
+如果您从源代码构建，并运行 make install，二进制文件将默认安装到您的 $PATH 中。
+
+## 加入网络 (Joining a network)
+
+请参阅网[络页面](../networks.zh-CN.mdx)以获取有关如何加入网络的详细信息。本指南的其余部分将假设您使用 `namadac utils join-network --chain-id <some-chain-id>` 命令加入了网络。
+
+## 运行账本节点 (Run a ledger node)
+我们推荐使用 [tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) 进行此步骤，它允许节点保持运行，而无需无限期地保持终端打开。如果没有，请跳到后续步骤。
+
+```shell copy
+tmux
+
+# inside the tmux/or not
+
+namadan ledger run
+
+# can detach the tmux (Ctrl-B then D)
+```
+
+对于更详细的输出，可以运行
+
+```shell copy
+NAMADA_LOG=info CMT_LOG_LEVEL=p2p:none,pex:error NAMADA_CMT_STDOUT=true namada ledger
+```
+
+这应该会同步您的节点到账本，这可能需要一些时间（取决于您的机器硬件以及创世和同步开始之间的时间）。在您的节点完全同步之前，后续命令（生成账户等）可能不会起作用。查询其他参与者的当前区块高度，以确保您已同步，以便继续进行。
+
+## 生成账户并获取一些代币 (Generate an account and grab some tokens)
+
+首先，您需要一个隐式账户以接收代币。您可以使用以下命令生成一个：
+
+```shell copy
+namadaw address gen --alias <your-go-to-alias>
+```
+这将生成一个新账户，并将其存储在默认的密钥链中。您可以使用以下命令查看账户：
+
+
+```shell copy
+namadaw address list
+```
+
+## 获取代币（仅限测试网）(Grabbing the tokens (testnet only))
+测试网代币可以从[水龙头](https://faucet.heliax.click/)处获得。
+
+## 接下来 (From here)
+从这里开始，您可以尝试各种炫酷的事情。也许尝试[屏蔽您的 NAM](../users/shielded-accounts/shielded-transfer.zh-CN.mdx)、将您的代币绑定到[验证者以进行委托](../users/delegators.zh-CN.mdx)，或成为[验证者](../operators/validators.mdx)。

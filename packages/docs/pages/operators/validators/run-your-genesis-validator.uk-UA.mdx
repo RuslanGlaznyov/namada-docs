@@ -1,0 +1,32 @@
+# Запустіть ваш вузол як валідатор генезису
+
+Після того, як `CHAIN_ID` буде випущено, можна приєднатися до тестової мережі. Якщо вузол, що приєднується, зареєстрований як генезис-валідатор у файлі генезису, він зможе брати участь у консенсусі і створювати блоки з початку ланцюжка.
+
+#### Приєднання до мережі
+Як валідатор генезису, ви можете приєднатися до мережі з розподіленим `CHAIN_ID`. Скажімо, цей `CHAIN_ID` буде `namada-mainnet`.
+
+У цьому випадку валідатор генезису може приєднатися до мережі за допомогою:
+
+``` bash copy
+export CHAIN_ID="namada-mainnet"
+namada client utils join-network \
+--chain-id $CHAIN_ID --genesis-validator $ALIAS
+```
+
+#### Запустіть свій вузол і синхронізуйте
+```bash copy
+NAMADA_LOG=info CMT_LOG_LEVEL=p2p:none,pex:error NAMADA_CMT_STDOUT=true namada node ledger run
+```
+Необов'язково: Якщо ви хочете отримати більше розгорнуті логи, ви можете замість цього запустити
+```bash copy
+NAMADA_LOG=debug CMT_LOG_LEVEL=p2p:none,pex:error NAMADA_CMT_STDOUT=true namada node ledger run
+```
+А якщо ви хочете зберегти свої логи у файл, ви можете замість цього запустити програму:
+```bash copy
+TIMESTAMP=$(date +%s)
+NAMADA_LOG=debug CMT_LOG_LEVEL=p2p:none,pex:error NAMADA_CMT_STDOUT=true namada node ledger run &> logs-${TIMESTAMP}.txt
+tail -f -n 20 logs-${TIMESTAMP}.txt ## (in another shell)
+```
+#### При правильному запуску ви повинні побачити наступний лог:
+`[<timestamp>] This node is a validator ...`
+    

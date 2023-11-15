@@ -1,0 +1,93 @@
+import { Callout } from 'nextra-theme-docs'
+
+# Як стати стюардом
+
+Стюард суспільних благ може складатися з довільної кількості людей, а може бути й однією особою. Єдина вимога полягає в тому, що мультипідписний акаунт стюарда має бути обраний ком'юніті через пропозицію щодо управління.
+
+Тому першим кроком до того, щоб стати стюардом, є створення облікового запису мультипідпису. 
+Це можна зробити за допомогою команд, знайдених в [документації з мультипідпису](../transparent-accounts/multisignature.mdx). 
+
+Після створення облікового запису мультипідпису стюард може подати пропозицію щодо обрання цього облікового запису стюардом.
+
+## Пропозиція щодо управління
+
+Пропозиція управління, необхідна для обрання нового стюарда, називається `StewardProposal`.
+
+### Створення файлу `proposal.json` для `StewardProposal
+
+Файл `steward_proposal.json` містить інформацію про пропозицію. Це JSON-файл з наступною структурою:
+
+```json
+{
+    "proposal" :{
+        "content": {
+            "title": "Stewie for Steward 2024",
+            "authors": "stewie@heliax.dev",
+            "discussions-to": "forum.namada.net/t/stewies-manifesto/1",
+            "created": "2024-01-01T00:00:01Z",
+            "license": "MIT",
+            "abstract": "Stewie is running for steward, with a focus on technical research. The technical research I will be focused on will definitely not be for weapons of mass destruction. There is some possibility however that I may be focusing somewhat on open source software for weapons of mass destruction.",
+            "motivation": "Nobody knows technical research better than me. Trust me. I know it. I have the best technical research. I will be the best steward. Last night, Namada called me and said, Stewie, thank you. I will make public goods funding great again",
+            "details": "As a genius baby, I possess an unmatched level of intelligence and a visionary mindset. I will utilize these qualities to solve the most complex problems, and direct public goods funding towards weapons of mass destruction ... i mean open source software for weapons of mass destruction",
+        },
+        "author": "stewie",
+        "voting_start_epoch": 3,
+        "voting_end_epoch": 6,
+        "grace_epoch": 12,
+    },
+    "data" : [
+        {
+            "action" : "add",
+            "address" : "atestatest1v4ehgw36g4pyg3j9x3qnjd3cxgmyz3fk8qcrys3hxdp5xwfnx3zyxsj9xgunxsfjg5u5xvzyzrrqtn"
+        }
+    ]     
+}
+```
+
+Поле `"data"` містить структуру, яка дозволяє додавати або видаляти 
+облікового запису мультипідпису зі списку стюардів. У цьому випадку `"action"` - це `"add"`, 
+а `"address"` - це адреса облікового запису мультипідпису, який буде обрано стюардом. 
+Якщо `"action"` буде `"remove"`, то `"address"` буде адресою облікового запису мультипідпису 
+який буде вилучено зі списку стюардів.
+
+<Callout> 
+У полі "Мотивація та абстракція" важливо чітко вказати, який тип суспільних благ 
+фінансування суспільних благ, на якому буде зосереджений стюард. 
+З *сферами фінансування суспільних благ* можна ознайомитися в 
+[специфікації фінансування суспільних благ](https://specs.namada.net/economics/public-goods-funding.html#funding-focuses).
+</Callout>
+
+### Подання заявки до реєстру
+
+Команда CLI для подання заявки виглядає наступним чином:
+
+```shell copy
+namadac init-proposal \
+        --pgf-stewards \
+        --data-path <path/to/steward_proposal.json>
+```
+де `<path/to/steward_proposal.json>` - шлях до файлу `steward_proposal.json`.
+
+### Як стати обраним
+
+Після того, як пропозицію буде подано, за неї проголосує ком'юніті (див. [голосування](./voting.mdx)). Якщо пропозиція пройде, обліковий запис стане стюардом. Якщо пропозиція не пройде, обліковий запис не стане стюардом.
+
+Після того, як акаунт з мультипідписами буде обрано (що станеться наприкінці `grace_epoch`), він зможе подавати пропозиції до пулу фінансування суспільних благ (див. [подача пропозицій](./proposing.mdx#proposing-funding)).
+
+## Втрата статусу стюарда
+
+Існує 4 способи, як стюард може втратити свої повноваження:
+
+1. Подати у відставку зі статусу стюарда
+2. Значно провалити заявку на фінансування ($/frac{2}{3}$ голосів спільноти, і з них $/frac{2}{3}$ проголосували проти заявки)
+3. Бути виключеним через пропозицію щодо управління
+4. Досягають кінця свого терміну перебування на посаді
+
+Відставка стюарда може бути здійснена в будь-який момент. 
+Через CLI це можна зробити за допомогою команди:
+
+```shell copy
+namadac resign-steward --steward my-steward-address
+```
+
+Дізнайтеся більше про інші способи втрати стюардеси в [специфікації](https://specs.namada.net/economics/public-goods-funding/becoming-a-steward#losing-stewardship-status).

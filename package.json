@@ -10,6 +10,7 @@
     "dev:specs": "npm run dev --workspace=packages/specs",
     "dev:community": "npm run dev --workspace=packages/community",
     "build:docs": "npm run build --workspace=packages/docs",
+    "build:page": "npm run cloud-page --workspace=packages/docs",
     "build:specs": "npm run build --workspace=packages/specs",
     "build:community": "npm run build --workspace=packages/community",
     "build": "npm run build --workspaces"
