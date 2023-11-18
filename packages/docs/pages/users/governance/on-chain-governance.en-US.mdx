@@ -16,7 +16,7 @@ namada wallet address find --alias `my-new-acc`
 
 Now, we need to create a json file `proposal.json` holding the content of our proposal. Copy the below text into a json file.
 
-```json
+```json copy
 {
 	"proposal": {
 		"content": {
@@ -54,7 +54,7 @@ The `data` field and its structure is dependant on the type of proposal being su
 
 ### Default Proposal 
 
-```json
+```json copy
 "data" : "<path/to/wasm.wasm>"
 ```
 
@@ -66,7 +66,7 @@ will be represented as a wasm file and the path to this file will be given in th
 
 ### ETH Bridge Proposal
 
-```json
+```json copy
 "data" : "<hex-encoded-bytes-of-what-will-be-signed-by-validators>"
 ```
 
@@ -77,7 +77,7 @@ The encoding will be submitted as a string
 
 ### Steward Proposal
 
-```json
+```json copy
 "data" : [
         {
             "action" : "add",
@@ -95,7 +95,7 @@ stewards in a single proposal.
 
 ### PGF Proposal
     
-```json
+```json copy
 "data" :
         {
             "continuous" : [
