@@ -16,7 +16,7 @@ namada wallet address find --alias `my-new-acc`
 
 Тепер нам потрібно створити json-файл `proposal.json` зі змістом нашої пропозиції. Скопіюйте наведений нижче текст у json-файл.
 
-```json
+```json copy
 {
 	"proposal": {
 		"content": {
@@ -54,7 +54,7 @@ namada wallet address find --alias `my-new-acc`
 
 ### Пропозиція за замовчуванням 
 
-```json
+```json copy
 "data" : "<path/to/wasm.wasm>"
 ```
 
@@ -66,7 +66,7 @@ namada wallet address find --alias `my-new-acc`
 
 ### Пропозиція мосту ETH
 
-```json
+```json copy
 "data" : "<hex-encoded-bytes-of-what-will-be-signed-by-validators>"
 ```
 
@@ -77,7 +77,7 @@ namada wallet address find --alias `my-new-acc`
 
 ### Пропозиція стюарда
 
-```json
+```json copy
 "data" : [
         {
             "action" : "add",
@@ -95,7 +95,7 @@ namada wallet address find --alias `my-new-acc`
 
 ### PGF(фінансування суспільних благ) Пропозиція
     
-```json
+```json copy
 "data" :
         {
             "continuous" : [

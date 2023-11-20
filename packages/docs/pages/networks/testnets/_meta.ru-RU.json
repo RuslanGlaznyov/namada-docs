@@ -1,0 +1,12 @@
+{
+  "environment-setup": "Настройка среды",
+  "migrating-testnets": "Этапы миграции для тестовых сетей",
+  "pre-genesis": "Инструкция валидаторов Pre-genesis",
+  "genesis-validator-apply": "Заявка на получения статуса валидатора генезис",
+  "joining-the-testnet": "Присоединения к последней тестовой сети",
+  "post-genesis-validator": "Стать валидатором post genesis",
+  "testnet-history": "История тестовых сетей",
+  "pow": "Использование крана testnet",
+  "faq": "FAQ(Часто задаваемые вопросы)",
+  "campfire": "Тестнет Namada Campfire"
+}
