@@ -1,3 +1,5 @@
+name: Publish namada-community
+
 on: [push]
 
 jobs:
