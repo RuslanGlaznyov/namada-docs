@@ -33,5 +33,5 @@ jobs:
           projectName: namada-community
           directory: ./packages/community/.vercel/output/static
           # Optional: Enable this if you want to have GitHub Deployments triggered
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          gitHubToken: ${{ secrets.GH_TOKEN }}
           wranglerVersion: '3'
