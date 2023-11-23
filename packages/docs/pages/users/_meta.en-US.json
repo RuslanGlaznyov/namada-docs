@@ -1,0 +1,10 @@
+{
+  "wallet": "Using the Namada wallet",
+  "transparent-accounts": "Transparent accounts",
+  "shielded-accounts": "The MASP",
+  "fees": "Fees on Namada",
+  "delegators": "Delegating stake on Namada",
+  "governance": "Governance and Public Goods Funding",
+  "public-goods-stewards": "PGF",
+  "ibc": "IBC transfers"
+}

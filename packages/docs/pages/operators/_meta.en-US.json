@@ -1,0 +1,10 @@
+{
+    "hardware": "Hardware requirements",
+    "ledger": "Running a full node",
+    "validators": "Validators",
+    "local-network": "Setting up a local network",
+    "ibc": "IBC Relayers",
+    "troubleshooting": "Troubleshooting",
+    "eth-bridge": "Eth bridge",
+    "hardware": "Hardware"
+}

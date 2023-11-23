@@ -1,0 +1,106 @@
+import { Callout } from 'nextra-theme-docs'
+
+# Настройка валидатора Genesis
+
+Валидатор генезиса  - это тот, который является валидатором с самого первого блока цепи, т.е. на этапе генезиса. Информация о валидаторах генезиса жестко фиксируется в файле genesis, который распространяется среди всех пользователей, желающих взаимодействовать с цепочкой.
+
+### Необходимые условия
+
+- машина, удовлетворяющая [требованиям ](../hardware.mdx)для запуска узла-валидатора
+- связанный публичный IPv4-адрес с портами 26656, доступный из любого места для P2P-соединений
+
+## Pre-genesis
+
+Чтобы настроить все [необходимые ключи](#required-keys) для валидатора genesis для предстоящей сети, можно выполнить следующую команду с выбранным псевдонимом. Обратите внимание, что этот псевдоним является публичным (адрес вашей учетной записи валидатора будет виден в каждом кошельке) и должен быть уникальным в сети.
+
+Также необходимо указать статический `{IP:порт}` в аргументе `--net-address` P2P-адреса вашего будущего узла.
+
+### 1. Создайте ключи валидатора:
+
+####  До `v0.25.0`
+```bash copy
+export ALIAS="CHOOSE_A_NAME_FOR_YOUR_VALIDATOR"
+export PUBLIC_IP="LAPTOP_OR_SERVER_IP"
+namada client utils init-genesis-validator --alias $ALIAS \
+--max-commission-rate-change 0.01 --commission-rate 0.05 \
+--net-address $PUBLIC_IP:26656
+```
+
+####  До `v0.25.0`
+
+##### 1.1 Сгенерируйте свои ключи
+
+``` bash
+export KEY_ALIAS="CHOOSE_A_NAME_FOR_YOUR_VALIDATOR-KEY"
+namadaw key gen --pre-genesis --alias $ALIAS
+```
+##### 1.2 Сгенерируйте свой валидатор
+
+``` bash
+export VALIDATOR_ALIAS="CHOOSE_A_NAME_FOR_YOUR_VALIDATOR"
+export PUBLIC_IP="LAPTOP_OR_SERVER_IP/DNS"
+export BALANCE_ON_KEY="The amount of tokens allocated at genesis to the key" # For testnets, usually 1000000000
+export EMAIL="The email address for validator communications" # Required field, but can be a dummy email (although not recommended)
+namada client utils init-genesis-validator \       
+    --source $KEY_ALIAS \
+    --alias $VALIDATOR_ALIAS \
+    --net-address "${PUBLIC_IP}:26656" \
+    --commission-rate 0.05 \
+    --max-commission-rate-change 0.01 \
+    --transfer-from-source-amount $BALANCE_ON_KEY \
+    --self-bond-amount 1000000 \
+    --email $EMAIL
+```
+
+### 2. После генерации ключей команда выведет на экран что-то вроде этого:
+До `v0.25.0`
+<Callout type="info">
+Если вы задали переменную $XDG\_DATA\_HOME, то именно в это место будет записан TOML прегенезиса. В противном случае см. ниже расположение по умолчанию.
+</Callout>
+
+#### Linux 
+```text copy
+Pre-genesis TOML written to $HOME/.local/share/namada
+```
+
+#### MacOS
+```text copy
+Pre-genesis TOML written to /Users/$USER/Library/Application\ Support/Namada
+```
+### 3. Сохраните этот каталог в качестве переменной среды для последующего использования:
+
+До `v0.25.0`
+#### Linux 
+```shell copy
+export BASE_DIR="$HOME/.local/share/namada"
+```
+#### MacOS
+```shell copy
+export BASE_DIR="/Users/$USER/Library/Application\ Support/Namada"
+```
+
+Этот файл является публичной конфигурацией вашего валидатора. Вы можете смело предоставить этот файл организатору сети, который отвечает за настройку и публикацию окончательного файла генезиса и конфигурации Namada для цепи.
+
+Обратите внимание, что в этот каталог будет записан и кошелек, содержащий ваши закрытые ключи.
+
+### 4. Вы можете получить файл `validator.toml`, выполнив команду:
+
+### Linux 
+```shell copy
+cat $HOME/.local/share/namada/pre-genesis/$ALIAS/validator.toml
+```
+
+### MacOS 
+```shell copy
+cat $HOME/Library/Application\ Support/Namada/pre-genesis/$ALIAS/validator.toml
+```
+
+### Необходимые ключи
+
+- Account key: Может использоваться для подписания транзакций, требующих авторизации в предикате валидности валидатора по умолчанию, например, перевод баланса.
+- Staking rewards key: Может использоваться для подписания транзакций на ставочном счете PoS.
+- Protocol key: Этот ключ используется самим ledger валидатора для подписания транзакции протокола от имени валидатора.
+- DKG key: Специальный ключ, необходимый для участия в протоколе DKG.
+- Consensus key: Используется в слое консенсуса CometBFT. В настоящее время этот ключ записывается в файл, который считывается CometBFT.
+- Eth hot key: Используется для проверки транзакций eth-bridge.
+- Eth cold key: Используется для аварийных операций с eth-bridge.

@@ -1,0 +1,28 @@
+# Встановлення з бінарних файлів
+
+## Передумови
+Існують певні передумови, які необхідно встановити перед тим, як встановлювати Namada через двійкові файли. 
+
+Ось вони: 
+- [CometBFT](./binaries/prerequisites.mdx#installing-cometbft)
+- [GLIBC](./binaries/prerequisites.mdx#installing-glibc)
+
+## Завантаження бінарних файлів
+
+Тепер, коли ви встановили всі залежності, ви можете завантажити останню версію бінарних файлів з нашої [сторінки випусків](https://github.com/anoma/namada/releases), вибравши відповідну архітектуру.
+
+Наведений нижче код завантажить усі бінарні файли останньої версії для всіх підтримуваних операційних систем.
+```shell copy
+OPERATING_SYSTEM="Linux" # or "Darwin" for MacOS
+latest_release_url=$(curl -s "https://api.github.com/repos/anoma/namada/releases/latest" | grep "browser_download_url" | cut -d '"' -f 4 | grep "$OPERATING_SYSTEM")
+wget "$latest_release_url"
+```
+
+## Розміщення двійкових файлів на `$PATH`.
+Для машин ubuntu і mac наступна команда має працювати для додавання namada до шляху.
+
+Опинившись у каталозі, що містить бінарні файли:
+```bash copy
+sudo cp ./namada* /usr/local/bin/
+```
+

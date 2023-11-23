@@ -1,0 +1,10 @@
+{
+  "wallet": "Успользование Namada кошелька",
+  "transparent-accounts": "Прозрачные счета",
+  "shielded-accounts": "The MASP",
+  "fees": "Тарифы в Namada",
+  "delegators": "Делегирование в Namada",
+  "governance": "Управление в Namada",
+  "public-goods-stewards": "PGF",
+  "ibc": "IBC тразакции"
+}

@@ -1,0 +1,93 @@
+# Усунення несправностей під час встановлення з вихідного коду
+
+### Недостатньо оперативної пам'яті
+[Локальна збірка двійкових файлів](../source.mdx) є важким обчислювальним завданням і може стати випробуванням для вашого комп'ютера. Зазвичай для компіляції потрібно щонайменше 16 ГБ оперативної пам'яті, а залежно від оптимізації вашого комп'ютера може знадобитися трохи більше (для деяких комп'ютерів трохи менше). З цієї причини компіляція іноді може завершитися невдало.
+
+Помилка
+```
+src/apps/namada lib could not compile due to previous errors. Exited with exit code:
+```
+це поширена помилка, яка іноді може означати, що на вашому комп'ютері закінчилася пам'ять під час компіляції. Щоб вирішити цю проблему, я виявив, що закриття всіх інших програм і перекомпіляція один або два рази зробить свою справу. В іншому випадку знадобиться більше оперативної пам'яті.
+
+### Компіляція вперше
+Помилки компіляції через відсутність встановлених бібліотек під час першого збирання двійкових файлів можуть бути поширеною проблемою. 
+
+#### Linker "CC" not found
+Якщо ви зіткнулися з помилкою
+
+```
+Entering directory '/root/namada/wasm/wasm_source'
+RUSTFLAGS='-C link-arg=-s'  cargo build --release --target wasm32-unknown-unknown --target-dir 'target' --features tx_bond && \
+cp "./target/wasm32-unknown-unknown/release/namada_wasm.wasm" ../tx_bond.wasm
+   Compiling proc-macro2 v1.0.46
+   Compiling quote v1.0.21
+error: linker `cc` not found
+  |
+  = note: No such file or directory (os error 2)
+
+error: could not compile `quote` due to previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `proc-macro2` due to previous error
+```
+
+Це можна вирішити, запустивши
+
+```bash copy
+sudo apt install build-essential
+```
+
+Іншим рішенням іноді може бути встановлення `libcland-dev`. Цього можна досягти за допомогою:
+
+```bash copy
+sudo apt-get update -y
+sudo apt-get install -y libclang-dev
+```
+
+
+#### WASM32-unknown-unknown
+Інша проблема, з якою може зіткнутися компілятор, полягає у тому, що він не може знайти ціль `wasm32-unknown-unknown`.
+
+```
+error[E0463]: can't find crate for `core`
+  |
+  = note: the `wasm32-unknown-unknown` target may not be installed
+  = help: consider downloading the target with `rustup target add wasm32-unknown-unknown`
+
+error[E0463]: can't find crate for `compiler_builtins`
+
+For more information about this error, try `rustc --explain E0463`.
+error: could not compile `cfg-if` due to 2 previous errors
+```
+
+Цю проблему можна вирішити, запустивши 
+
+```bash copy
+rustup target add wasm32-unknown-unknown
+```
+(Так, ім'я цілі - `wasm32-unknown-unknown`. Це не означає, що компілятор не може визначити, яка це версія/випуск).
+
+#### OpenSSL
+
+Якщо ви зіткнулися з помилкою
+
+```
+Could not find directory of OpenSSL installation, and this `-sys` crate cannot
+  proceed without this knowledge. If OpenSSL is installed and this crate had
+  trouble finding it,  you can set the `OPENSSL_DIR` environment variable for the
+  compilation process.
+
+  Make sure you also have the development packages of openssl installed.
+  For example, `libssl-dev` on Ubuntu or `openssl-devel` on Fedora.
+
+  If you're in a situation where you think the directory *should* be found
+  automatically, please open a bug at https://github.com/sfackler/rust-openssl
+  and include information about your system as well as this message.
+```
+
+Далі рішення прописано для вас. Вам потрібно встановити пакети розробки OpenSSL. Для Ubuntu це `libssl-dev`. Для Fedora це `openssl-devel`. Для інших дистрибутивів, будь ласка, зверніться до [веб-сайту OpenSSL](https://www.openssl.org/).
+
+Для Ubuntu цього можна досягти за допомогою
+
+```bash copy
+sudo apt-get install libssl-dev
+```

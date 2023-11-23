@@ -1,0 +1,32 @@
+# Використання SDK з інтерфейсом Namada
+
+[Інтерфейс Namada](https://github.com/anoma/namada-interface) - це веб-інтерфейс, розроблений фондом Anoma Foundation.
+
+Він дозволяє легко створювати та керувати власною децентралізованою ідентичністю, в тому числі інтегруватися з додатком для ведення книги.
+
+Реалізація інтерфейсу використовує комбінацію TypeScript і Rust для взаємодії з SDK.
+
+## Приклад
+
+```typescript
+// Import Sdk & Query
+import { Query, Sdk } from "@namada/shared";
+// Import wasm initialization function
+import { init as initShared } from "@namada/shared/src/init";
+
+async function init() {
+    await initShared();
+
+    const sdk = new Sdk(RPC_URL_OF_NAM_NODE);
+    const query = new Query(RPC_URL_OF_NAM_NODE);
+
+  // ...
+}
+
+init();
+```
+
+## Документація
+
+{/* TODO: Make sure this is updated to the main repo, once ready and merged */}
+Щоб дізнатися більше, будь ласка, прочитайте документацію, яка підтримується [тут](https://github.com/anoma/namada-interface/blob/e9b76f54966ec48befe4a12a47808684e0d40eaf/specs/packages/sdk.md#how-can-you-import-and-use-the-sdk).
